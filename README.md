@@ -2,13 +2,13 @@ Memory
 =======
 JS Course Project in [Master MWT](http://mwt.disim.univaq.it/).
 
-#### Description 
+## Description 
 
 This is a Javascript implementation of the game 'Memory'.
 
 This project uses [npm](https://www.npmjs.com/) package manager and [webpack](https://webpack.js.org/) module bundler.
 
-#### Structure
+## Structure
 
 ##### Directory tree:
 <pre>
@@ -42,5 +42,5 @@ This project uses [npm](https://www.npmjs.com/) package manager and [webpack](ht
     * utils.js
     * welcome.js
 
-#### Author:
+## Author:
 * **[Riccardo Armando Di Prinzio](mailto:riccardoarmando.diprinzio@student.univaq.it)** [Matr: 268568]
