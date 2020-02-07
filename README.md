@@ -1,5 +1,6 @@
 Memory
 =======
+JS Course Project in [Master MWT](http://mwt.disim.univaq.it/).
 
 #### Description 
 
@@ -30,7 +31,9 @@ This project uses [npm](https://www.npmjs.com/) package manager and [webpack](ht
 
 ##### Directories and files:
 * dist: directory that contains the production code (index.html and a (minified) main.js).
+
 * node_modules: npm modules directory.
+
 * src: directory that contains all the application's JS source code.
     * Card.js
     * CardManager.js
@@ -38,3 +41,6 @@ This project uses [npm](https://www.npmjs.com/) package manager and [webpack](ht
     * memory.js
     * utils.js
     * welcome.js
+
+#### Author:
+* **[Riccardo Armando Di Prinzio](mailto:riccardoarmando.diprinzio@student.univaq.it)** [Matr: 268568]
