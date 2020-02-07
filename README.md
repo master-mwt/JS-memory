@@ -42,5 +42,5 @@ This project uses [npm](https://www.npmjs.com/) package manager and [webpack](ht
     * utils.js
     * welcome.js
 
-## Author:
+## Author
 * **[Riccardo Armando Di Prinzio](mailto:riccardoarmando.diprinzio@student.univaq.it)** [Matr: 268568]
