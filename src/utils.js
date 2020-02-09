@@ -5,10 +5,18 @@ let setStyle = function(item, style){
 };
 
 let clearHTML = function (item) {
-    item.innerHTML = "";
+    while(item.hasChildNodes()){
+        item.firstChild.remove();
+    }
+};
+
+let getImage = function() {
+    // TODO: getImage()[from disk or from net ?]
+    return "";
 };
 
 export {
     setStyle,
     clearHTML,
+    getImage,
 };

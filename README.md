@@ -11,6 +11,7 @@ This project uses [npm](https://www.npmjs.com/) package manager and [webpack](ht
 ## Structure
 
 ##### Directory tree:
+<!-- TODO: Directory tree refresh -->
 <pre>
 /
 ├── dist
