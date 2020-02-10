@@ -1,5 +1,5 @@
 import CardManager from './CardManager';
-import {clearHTML, setStyle} from './utils';
+import {clearHTML, getImage, setStyle} from './utils';
 
 // TODO: refactoring
 let memory = function (tableDimension) {
@@ -25,6 +25,7 @@ let memory = function (tableDimension) {
 
     let cardManager = new CardManager(tableDiv);
 
+    // TODO: dynamic tableDimension ?
     switch (tableDimension) {
         case "radio6":
             createTable(6, cardManager);
@@ -154,9 +155,11 @@ let memory = function (tableDimension) {
 let createTable = function(numCards, cardManager){
     let i = 0;
     while(i < numCards){
-        cardManager.createCard('card' + i, "yo", "yo");
+        let image = getImage();
+
+        cardManager.createCard('card' + i, image.name, image.url);
         i++;
-        cardManager.createCard('card' + i, "yo", "yo");
+        cardManager.createCard('card' + i, image.name, image.url);
         i++;
     }
 

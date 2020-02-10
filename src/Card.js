@@ -1,6 +1,7 @@
 import {setStyle} from './utils';
 
-let Card = function(id, imageUrl, imageName) {
+// TODO: graphical effects
+let Card = function(id, imageName, imageUrl) {
 
   Card.prototype.setStyle = setStyle;
   let div;
@@ -86,9 +87,11 @@ let Card = function(id, imageUrl, imageName) {
       div.setAttribute('removed', 'removed');
     };
 
-    this.setBackgroundImage = function(imageUrl, imageName){
-      //div.style.backgroundImage = `url('${imageUrl}')`;
+    this.setBackgroundImage = function(imageName, imageUrl){
       div.setAttribute('cardimage', imageName);
+      div.style.backgroundImage = `url('${imageUrl}')`;
+      div.style.backgroundSize = 'cover';
+
     };
 
     this.setId = function(id) {
@@ -117,10 +120,10 @@ let Card = function(id, imageUrl, imageName) {
     };
 
 
-    // set id, imageUrl, imageName
-    if(id && imageUrl && imageName){
+    // set id, imageName, imageUrl
+    if(id && imageName && imageUrl){
       this.setId(id);
-      this.setBackgroundImage(imageUrl, imageName);
+      this.setBackgroundImage(imageName, imageUrl);
     } else {
       // TODO: exists a better method ?
       throw "Missing required parameters";
@@ -132,7 +135,5 @@ let Card = function(id, imageUrl, imageName) {
   init();
 
 };
-
-
 
 export default Card;

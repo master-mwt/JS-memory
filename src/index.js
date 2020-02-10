@@ -5,9 +5,7 @@ import welcome from "./welcome";
  * Listener that creates the root div and calls the game function welcome()
  */
 window.addEventListener('load',function(){
-
-    console.log('Hello from index.js');
-
+    
     let body = document.getElementsByTagName('body')[0];
 
     // creation of the root div
