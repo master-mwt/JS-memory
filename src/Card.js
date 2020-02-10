@@ -4,25 +4,48 @@ let Card = function(id, imageUrl, imageName) {
 
   Card.prototype.setStyle = setStyle;
   let div;
+  let _this = this;
+
+  let listenerFunctionClick = (event) => {
+    this.setStyle(div, {
+      backgroundColor: 'green',
+    });
+  };
+
+  let listenerFunctionOver = (event) => {
+    this.setStyle(div, {
+      backgroundColor: 'blue',
+    });
+  };
+
+  let listenerFunctionOut = (event) => {
+    this.setStyle(div, {
+      backgroundColor: 'red',
+    });
+  };
+
+  let listenerFunctionChoiced = (event) => {
+   this.choiced();
+  };
+
+  let listenerFunctionChoiceClear = (event) => {
+    this.clearChoiced();
+  };
 
   // init function
-  let init = function() {
+  let init = (function() {
 
     div = document.createElement('div');
-
-    // set id, imageUrl, imageName
-    if(id && imageUrl && imageName){
-      this.setId(id);
-      this.setBackgroundImage(imageUrl, imageName);
-    } else {
-      // TODO: exists a better method ?
-      throw "Missing required parameters";
-    }
 
     // set card style
     this.setStyle(div,{
       // style here
-      // TODO: set card style
+      height: "100px",
+      width: "80px",
+      backgroundColor: "red",
+      display: "inline-block",
+      margin: "5px",
+      position: "relative",
     });
 
 
@@ -31,12 +54,40 @@ let Card = function(id, imageUrl, imageName) {
       parentElem.appendChild(div);
     };
 
+    this.choiced = function() {
+      this.setStyle(div, {
+        backgroundColor: 'black',
+      });
+      div.removeEventListener('click', listenerFunctionClick);
+      div.removeEventListener('mouseover', listenerFunctionOver);
+      div.removeEventListener('mouseout', listenerFunctionOut);
+    };
+
+    this.clearChoiced = function() {
+      this.setStyle(div, {
+        backgroundColor: 'red',
+      });
+      div.addEventListener('click', listenerFunctionClick, false);
+      div.addEventListener('mouseover', listenerFunctionOver, false);
+      div.addEventListener('mouseout', listenerFunctionOut, false);
+    };
+
+
     this.detach = function() {
-      div.parentElement.removeChild(div);
+      // div.parentElement.removeChild(div);
+      this.setStyle(div, {
+        backgroundColor: 'white',
+      });
+
+      div.removeEventListener('click', listenerFunctionClick);
+      div.removeEventListener('mouseover', listenerFunctionOver);
+      div.removeEventListener('mouseout', listenerFunctionOut);
+
+      div.setAttribute('removed', 'removed');
     };
 
     this.setBackgroundImage = function(imageUrl, imageName){
-      div.style.backgroundImage = `url('${imageUrl}')`;
+      //div.style.backgroundImage = `url('${imageUrl}')`;
       div.setAttribute('cardimage', imageName);
     };
 
@@ -47,25 +98,41 @@ let Card = function(id, imageUrl, imageName) {
 
 
     // listeners
+
+
     // TODO: listeners definition
-    div.addEventListener('click', (e) => {
-      // click effect
+    div.addEventListener('click', listenerFunctionClick, false);
 
-    });
+    div.addEventListener('mouseover', listenerFunctionOver, false);
 
-    div.addEventListener('mouseover', (e) => {
-      // mouseover effect
-    });
+    div.addEventListener('mouseout', listenerFunctionOut, false);
 
-    div.addEventListener('mouseout', (e) => {
-      // mouseout effect
-    });
+    div.addEventListener('choicedCard', listenerFunctionChoiced, false);
 
-  };
+    div.addEventListener('choiceClearedCard', listenerFunctionChoiceClear, false);
+
+
+    this.handleEvent = function(eventType, callBack) {
+      div.addEventListener(eventType, callBack.bind(null, _this)); // il bind con null serve ad evitare che div ritorni fuori
+    };
+
+
+    // set id, imageUrl, imageName
+    if(id && imageUrl && imageName){
+      this.setId(id);
+      this.setBackgroundImage(imageUrl, imageName);
+    } else {
+      // TODO: exists a better method ?
+      throw "Missing required parameters";
+    }
+
+  }).bind(this);
 
   // call init
   init();
 
 };
+
+
 
 export default Card;

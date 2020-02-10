@@ -6,8 +6,6 @@ import memory from "./memory";
  */
 let welcome = function () {
 
-    console.log('Hello from welcome.js');
-
     let root = document.getElementById('root');
 
     let context = document.createElement('div');
@@ -27,7 +25,7 @@ let welcome = function () {
 
     let inputDiv = document.createElement('div');
 
-    for(let tableDim of [6,12,24]){
+    for(let tableDim of [6,12,20]){
         let radioTableDiv = document.createElement('div');
         let radioTable = document.createElement('input');
         let labelTable = document.createElement('label');
@@ -67,10 +65,9 @@ let welcome = function () {
 
         if(data === 'radio6' ||
             data === 'radio12' ||
-            data === 'radio24'){
+            data === 'radio20'){
 
             form.removeEventListener('submit',submitListenerFunction);
-            // TODO: Forse esiste un metodo migliore
             clearHTML(context);
 
             memory(data);

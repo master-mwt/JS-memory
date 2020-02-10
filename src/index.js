@@ -18,8 +18,9 @@ window.addEventListener('load',function(){
         'margin': 'auto',
         'width': '50%',
         'border': '3px solid red',
-        'padding': '180px 0',
+        'padding': '150px 0',
         'text-align': 'center',
+        'position':'relative',
     });
 
     // append it to the <body>

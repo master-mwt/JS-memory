@@ -4,10 +4,18 @@ let CardManager = function(context) {
 
   let cardList = [];
   let remaining = 0;
+  let _this = this;
 
   this.createCard = function(id, imageUrl, imageName) {
     let card = new Card(id, imageUrl, imageName);
-    // TODO: handle creation and append
+    this.cardList.push(card);
+    this.remaining++;
+
+    card.handleEvent('removeCard', function(card) {
+      _this.removeCard(card);
+    });
+
+    return card;
   };
 
   this.removeCard = function(card) {
@@ -18,9 +26,13 @@ let CardManager = function(context) {
         break;
       }
     }
-    cardList.splice(i,1);
+    this.cardList.splice(i,1);
     card.detach();
-    remaining--;
+    this.remaining--;
+  };
+
+  this.append = function(card) {
+    card.attach(context);
   };
 
   this.cardList = cardList;
