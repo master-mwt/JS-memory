@@ -14,7 +14,7 @@ let clearHTML = function (item) {
 
 // TODO: dynamic get images name, for all images (min: 3, max: 10)
 let images = ['rose', 'komi', 'sun'];
-let getImage = function() {
+let getFrontCard = function() {
     let index = Math.floor(Math.random()*images.length);
     let image = images[index];
     images.splice(index, 1);
@@ -22,8 +22,13 @@ let getImage = function() {
     return new Image(image);
 };
 
+let getBackCard = function() {
+    return new Image('backCard');
+};
+
 export {
     setStyle,
     clearHTML,
-    getImage,
+    getFrontCard,
+    getBackCard,
 };

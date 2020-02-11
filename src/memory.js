@@ -1,5 +1,11 @@
 import CardManager from './CardManager';
-import {clearHTML, getImage, setStyle} from './utils';
+import {
+    clearHTML,
+    getBackCard,
+    getFrontCard,
+    getImage,
+    setStyle,
+} from './utils';
 
 // TODO: refactoring
 let memory = function (tableDimension) {
@@ -154,12 +160,13 @@ let memory = function (tableDimension) {
 // TODO: possibile miglioria
 let createTable = function(numCards, cardManager){
     let i = 0;
+    let backCard = getBackCard();
     while(i < numCards){
-        let image = getImage();
+        let frontCard = getFrontCard();
 
-        cardManager.createCard('card' + i, image.name, image.url);
+        cardManager.createCard('card' + i, frontCard, backCard);
         i++;
-        cardManager.createCard('card' + i, image.name, image.url);
+        cardManager.createCard('card' + i, frontCard, backCard);
         i++;
     }
 

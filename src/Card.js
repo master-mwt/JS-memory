@@ -1,36 +1,38 @@
 import {setStyle} from './utils';
 
 // TODO: graphical effects
-let Card = function(id, imageName, imageUrl) {
+let Card = function(id, frontCard, backCard) {
 
   Card.prototype.setStyle = setStyle;
   let div;
   let _this = this;
 
   let listenerFunctionClick = (event) => {
-    this.setStyle(div, {
+    // TODO: click effect
+    /*this.setStyle(div, {
       backgroundColor: 'green',
-    });
+    });*/
   };
 
   let listenerFunctionOver = (event) => {
     this.setStyle(div, {
-      backgroundColor: 'blue',
+      /*backgroundColor: 'blue',*/
+      'box-shadow': '10px 10px 5px grey',
     });
   };
 
   let listenerFunctionOut = (event) => {
     this.setStyle(div, {
-      backgroundColor: 'red',
+      'box-shadow': '0px 0px 0px white',
     });
   };
 
   let listenerFunctionChoiced = (event) => {
-   this.choiced();
+   this.chosen();
   };
 
   let listenerFunctionChoiceClear = (event) => {
-    this.clearChoiced();
+    this.clearChosen();
   };
 
   // init function
@@ -41,9 +43,9 @@ let Card = function(id, imageName, imageUrl) {
     // set card style
     this.setStyle(div,{
       // style here
-      height: "100px",
-      width: "80px",
-      backgroundColor: "red",
+      height: "120px",
+      width: "90px",
+      /*backgroundColor: "red",*/
       display: "inline-block",
       margin: "5px",
       position: "relative",
@@ -55,18 +57,28 @@ let Card = function(id, imageName, imageUrl) {
       parentElem.appendChild(div);
     };
 
-    this.choiced = function() {
+    this.chosen = function() {
+      div.style.backgroundImage = `url('${frontCard.url}')`;
+      div.style.backgroundSize = 'cover';
+
       this.setStyle(div, {
-        backgroundColor: 'black',
+        /*backgroundColor: 'black',*/
+        'box-shadow': '10px 10px 5px grey',
       });
       div.removeEventListener('click', listenerFunctionClick);
       div.removeEventListener('mouseover', listenerFunctionOver);
       div.removeEventListener('mouseout', listenerFunctionOut);
     };
 
-    this.clearChoiced = function() {
+    this.clearChosen = function() {
+      div.style.backgroundImage = `url('${backCard.url}')`;
+      div.style.backgroundSize = '100% 100%';
+      div.style.backgroundRepeat = 'no-repeat';
+      div.backgroundPosition = 'center';
+
       this.setStyle(div, {
-        backgroundColor: 'red',
+        /*backgroundColor: 'red',*/
+        'box-shadow': '0px 0px 0px white',
       });
       div.addEventListener('click', listenerFunctionClick, false);
       div.addEventListener('mouseover', listenerFunctionOver, false);
@@ -76,8 +88,10 @@ let Card = function(id, imageName, imageUrl) {
 
     this.detach = function() {
       // div.parentElement.removeChild(div);
+      div.style.backgroundImage = 'none';
       this.setStyle(div, {
         backgroundColor: 'white',
+        'box-shadow': '0px 0px 0px white',
       });
 
       div.removeEventListener('click', listenerFunctionClick);
@@ -87,11 +101,15 @@ let Card = function(id, imageName, imageUrl) {
       div.setAttribute('removed', 'removed');
     };
 
-    this.setBackgroundImage = function(imageName, imageUrl){
-      div.setAttribute('cardimage', imageName);
-      div.style.backgroundImage = `url('${imageUrl}')`;
-      div.style.backgroundSize = 'cover';
+    this.setImages = function(frontCard, backCard){
+      div.setAttribute('cardimage', frontCard.name);
+      this.frontCard = frontCard;
+      this.backCard = backCard;
 
+      div.style.backgroundImage = `url('${backCard.url}')`;
+      div.style.backgroundSize = '100% 100%';
+      /*div.style.backgroundRepeat = 'no-repeat';*/
+      /*div.backgroundPosition = 'center';*/
     };
 
     this.setId = function(id) {
@@ -101,9 +119,6 @@ let Card = function(id, imageName, imageUrl) {
 
 
     // listeners
-
-
-    // TODO: listeners definition
     div.addEventListener('click', listenerFunctionClick, false);
 
     div.addEventListener('mouseover', listenerFunctionOver, false);
@@ -120,12 +135,11 @@ let Card = function(id, imageName, imageUrl) {
     };
 
 
-    // set id, imageName, imageUrl
-    if(id && imageName && imageUrl){
+    // set id, frontCard, backCard
+    if(id && frontCard && backCard){
       this.setId(id);
-      this.setBackgroundImage(imageName, imageUrl);
+      this.setImages(frontCard, backCard);
     } else {
-      // TODO: exists a better method ?
       throw "Missing required parameters";
     }
 

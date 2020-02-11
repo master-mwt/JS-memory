@@ -6,8 +6,8 @@ let CardManager = function(context) {
   let remaining = 0;
   let _this = this;
 
-  this.createCard = function(id, imageUrl, imageName) {
-    let card = new Card(id, imageUrl, imageName);
+  this.createCard = function(id, frontCard, backCard) {
+    let card = new Card(id, frontCard, backCard);
     this.cardList.push(card);
     this.remaining++;
 
