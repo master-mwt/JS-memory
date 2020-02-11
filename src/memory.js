@@ -3,8 +3,7 @@ import {
     clearHTML,
     getBackCard,
     getFrontCard,
-    getImage,
-    setStyle,
+    setStyle, shuffle,
 } from './utils';
 
 // TODO: refactoring
@@ -15,9 +14,9 @@ let memory = function (tableDimension) {
     tableDiv.setAttribute('id', 'table');
     let scoreDiv = document.createElement('div');
     scoreDiv.setAttribute('id', 'score');
-    let remaining = document.createElement('p');
+    let remainingP = document.createElement('p');
     let time = document.createElement('p');
-    scoreDiv.appendChild(remaining);
+    scoreDiv.appendChild(remainingP);
     scoreDiv.appendChild(time);
 
     setStyle(scoreDiv, {
@@ -31,24 +30,11 @@ let memory = function (tableDimension) {
 
     let cardManager = new CardManager(tableDiv);
 
-    // TODO: dynamic tableDimension ?
-    switch (tableDimension) {
-        case "radio6":
-            createTable(6, cardManager);
-            break;
-        case "radio12":
-            createTable(12, cardManager);
-            break;
-        case "radio20":
-            createTable(20, cardManager);
-            break;
-        default:
-            break;
-    }
+    createTable(Number.parseInt(tableDimension), cardManager);
 
     let card1;
     let card2;
-    remaining.innerText = 'Remaining: ' + cardManager.remaining;
+    remainingP.innerText = 'Remaining: ' + cardManager.remaining;
 
     let clickListener = (event) => {
         if(event.target.getAttribute('id').includes('card') && !(event.target.getAttribute('removed'))){
@@ -63,7 +49,7 @@ let memory = function (tableDimension) {
 
         if(!card1){
             card1 = card;
-            card1.dispatchEvent(new Event('choicedCard'));
+            card1.dispatchEvent(new Event('choiceCard'));
 
         } else if(!card2){
 
@@ -72,7 +58,7 @@ let memory = function (tableDimension) {
                 return;
             }
             card2 = card;
-            card2.dispatchEvent(new Event('choicedCard'));
+            card2.dispatchEvent(new Event('choiceCard'));
 
             if(card1.getAttribute('cardimage') === card2.getAttribute('cardimage')){
                 // handle win move
@@ -93,7 +79,7 @@ let memory = function (tableDimension) {
         card1 = undefined;
         card2 = undefined;
 
-        remaining.innerText = 'Remaining: ' + cardManager.remaining;
+        remainingP.innerText = 'Remaining: ' + cardManager.remaining;
 
         if(cardManager.remaining === 0){
             // victory condition satisfied
@@ -157,7 +143,6 @@ let memory = function (tableDimension) {
 
 };
 
-// TODO: possibile miglioria
 let createTable = function(numCards, cardManager){
     let i = 0;
     let backCard = getBackCard();
@@ -170,7 +155,8 @@ let createTable = function(numCards, cardManager){
         i++;
     }
 
-    for(let card of cardManager.cardList){
+    let cards = shuffle(cardManager.cardList);
+    for(let card of cards){
         cardManager.append(card);
     }
 };

@@ -7,31 +7,24 @@ let Card = function(id, frontCard, backCard) {
   let div;
   let _this = this;
 
-  let listenerFunctionClick = (event) => {
-    // TODO: click effect
-    /*this.setStyle(div, {
-      backgroundColor: 'green',
-    });*/
-  };
-
-  let listenerFunctionOver = (event) => {
+  let listenerFunctionOver = () => {
     this.setStyle(div, {
       /*backgroundColor: 'blue',*/
       'box-shadow': '10px 10px 5px grey',
     });
   };
 
-  let listenerFunctionOut = (event) => {
+  let listenerFunctionOut = () => {
     this.setStyle(div, {
       'box-shadow': '0px 0px 0px white',
     });
   };
 
-  let listenerFunctionChoiced = (event) => {
+  let listenerFunctionChosen = () => {
    this.chosen();
   };
 
-  let listenerFunctionChoiceClear = (event) => {
+  let listenerFunctionChosenClear = () => {
     this.clearChosen();
   };
 
@@ -58,29 +51,23 @@ let Card = function(id, frontCard, backCard) {
     };
 
     this.chosen = function() {
-      div.style.backgroundImage = `url('${frontCard.url}')`;
-      div.style.backgroundSize = 'cover';
+      this.setBackgroundImage(this.frontCard);
 
       this.setStyle(div, {
         /*backgroundColor: 'black',*/
         'box-shadow': '10px 10px 5px grey',
       });
-      div.removeEventListener('click', listenerFunctionClick);
       div.removeEventListener('mouseover', listenerFunctionOver);
       div.removeEventListener('mouseout', listenerFunctionOut);
     };
 
     this.clearChosen = function() {
-      div.style.backgroundImage = `url('${backCard.url}')`;
-      div.style.backgroundSize = '100% 100%';
-      div.style.backgroundRepeat = 'no-repeat';
-      div.backgroundPosition = 'center';
+      this.setBackgroundImage(this.backCard);
 
       this.setStyle(div, {
         /*backgroundColor: 'red',*/
         'box-shadow': '0px 0px 0px white',
       });
-      div.addEventListener('click', listenerFunctionClick, false);
       div.addEventListener('mouseover', listenerFunctionOver, false);
       div.addEventListener('mouseout', listenerFunctionOut, false);
     };
@@ -94,7 +81,6 @@ let Card = function(id, frontCard, backCard) {
         'box-shadow': '0px 0px 0px white',
       });
 
-      div.removeEventListener('click', listenerFunctionClick);
       div.removeEventListener('mouseover', listenerFunctionOver);
       div.removeEventListener('mouseout', listenerFunctionOut);
 
@@ -103,37 +89,35 @@ let Card = function(id, frontCard, backCard) {
 
     this.setImages = function(frontCard, backCard){
       div.setAttribute('cardimage', frontCard.name);
+
       this.frontCard = frontCard;
       this.backCard = backCard;
 
-      div.style.backgroundImage = `url('${backCard.url}')`;
+      this.setBackgroundImage(backCard);
+    };
+
+    this.setBackgroundImage = function(image) {
+      div.style.backgroundImage = `url('${image.url}')`;
       div.style.backgroundSize = '100% 100%';
-      /*div.style.backgroundRepeat = 'no-repeat';*/
-      /*div.backgroundPosition = 'center';*/
+      div.style.backgroundRepeat = 'no-repeat';
+      div.backgroundPosition = 'center';
     };
 
     this.setId = function(id) {
       this.id = id;
-      div.setAttribute('id',id);
+      div.setAttribute('id',this.id);
     };
-
-
-    // listeners
-    div.addEventListener('click', listenerFunctionClick, false);
-
-    div.addEventListener('mouseover', listenerFunctionOver, false);
-
-    div.addEventListener('mouseout', listenerFunctionOut, false);
-
-    div.addEventListener('choicedCard', listenerFunctionChoiced, false);
-
-    div.addEventListener('choiceClearedCard', listenerFunctionChoiceClear, false);
-
 
     this.handleEvent = function(eventType, callBack) {
       div.addEventListener(eventType, callBack.bind(null, _this)); // il bind con null serve ad evitare che div ritorni fuori
     };
 
+
+    // listeners
+    div.addEventListener('mouseover', listenerFunctionOver, false);
+    div.addEventListener('mouseout', listenerFunctionOut, false);
+    div.addEventListener('choiceCard', listenerFunctionChosen, false);
+    div.addEventListener('choiceClearedCard', listenerFunctionChosenClear, false);
 
     // set id, frontCard, backCard
     if(id && frontCard && backCard){

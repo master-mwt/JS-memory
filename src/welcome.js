@@ -32,7 +32,7 @@ let welcome = function () {
         radioTable.setAttribute('id','radioTable' + tableDim);
         radioTable.setAttribute('type','radio');
         radioTable.setAttribute('name','radioTable');
-        radioTable.setAttribute('value','radio' + tableDim);
+        radioTable.setAttribute('value', tableDim.toString());
 
         if(tableDim === 6){
             radioTable.setAttribute('checked','checked');
@@ -61,17 +61,13 @@ let welcome = function () {
 
     let submitListenerFunction = function (e) {
         let formData = new FormData(e.target);
-        let data = formData.get('radioTable');
+        let data = Number(formData.get('radioTable'));
 
-        if(data === 'radio6' ||
-            data === 'radio12' ||
-            data === 'radio20'){
-
+        if(data === 6 || data === 12 || data === 20){
             form.removeEventListener('submit',submitListenerFunction);
             clearHTML(context);
 
             memory(data);
-
         }
 
         e.preventDefault();
