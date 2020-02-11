@@ -4,9 +4,10 @@ let CardManager = function(context) {
 
   let cardList = [];
   let remaining = 0;
+  let _this = this;
+
   this.cardList = cardList;
   this.remaining = remaining;
-  let _this = this;
 
   //
   // Functions

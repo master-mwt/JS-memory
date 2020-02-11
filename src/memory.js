@@ -2,42 +2,51 @@ import CardManager from './CardManager';
 import {
     clearHTML,
     getBackCard,
-    getFrontCard, printTime,
-    setStyle, shuffle,
+    getFrontCard,
+    setStyle,
+    shuffle,
+    TimeCounter,
 } from './utils';
 import victory from './victory';
 
-// TODO: refactoring
 let memory = function (tableDimension) {
 
-    let context = document.getElementById('context');
-    let tableDiv = document.createElement('div');
-    tableDiv.setAttribute('id', 'table');
-    let scoreDiv = document.createElement('div');
-    scoreDiv.setAttribute('id', 'score');
-    let remainingP = document.createElement('p');
-    let time = document.createElement('p');
-    scoreDiv.appendChild(remainingP);
-    scoreDiv.appendChild(time);
+    //
+    // Game functions definitions
+    //
+    let run = function(){
+        //
+        // Populate table with cards
+        //
+        createGameTable(Number.parseInt(tableDimension));
 
-    setStyle(scoreDiv, {
-        'position': 'absolute',
-        'bottom': 0,
-        'text-align':'left',
-        'padding-left': '10px',
-    });
-    context.appendChild(tableDiv);
-    context.appendChild(scoreDiv);
+        //
+        // Starting game
+        //
+        remainingP.innerText = 'Remaining cards: ' + cardManager.remaining;
+        context.addEventListener('click', clickOnCardListener, false);
+        timer.start();
+    };
 
-    let cardManager = new CardManager(tableDiv);
+    let createGameTable = function(numCards){
+        let i = 0;
+        let backCard = getBackCard();
+        while(i < numCards){
+            let frontCard = getFrontCard();
 
-    createGameTable(Number.parseInt(tableDimension), cardManager);
+            cardManager.createCard('card' + i, frontCard, backCard);
+            cardManager.createCard('card' + (i + 1), frontCard, backCard);
+            i += 2;
+        }
 
-    let card1;
-    let card2;
-    remainingP.innerText = 'Remaining: ' + cardManager.remaining;
+        let cards = shuffle(cardManager.cardList);
+        for(let card of cards){
+            cardManager.append(card);
+        }
+    };
 
-    let clickListener = (event) => {
+    // click listener function
+    let clickOnCardListener = (event) => {
         let idTarget = event.target.getAttribute('id');
         if(idTarget && idTarget.includes('card') &&
             !(event.target.getAttribute('removed'))){
@@ -45,8 +54,7 @@ let memory = function (tableDimension) {
             gameMove(event.target);
         }
     };
-
-    context.addEventListener('click', clickListener, false);
+    // end click listener function
 
     let gameMove = function(card) {
 
@@ -82,11 +90,11 @@ let memory = function (tableDimension) {
         card1 = undefined;
         card2 = undefined;
 
-        remainingP.innerText = 'Remaining: ' + cardManager.remaining;
+        remainingP.innerText = 'Remaining cards: ' + cardManager.remaining;
 
         if(cardManager.remaining === 0){
             // victory condition satisfied
-            winGame();
+            gameVictory();
         }
     };
 
@@ -98,45 +106,56 @@ let memory = function (tableDimension) {
         card2 = undefined;
     };
 
-    let winGame = function(){
-        clearInterval(updateTime);
-        context.removeEventListener('click',clickListener);
+    let gameVictory = function(){
+        let lastTime = timer.stop();
+        context.removeEventListener('click',clickOnCardListener);
         clearHTML(context);
 
         victory(lastTime);
     };
+    //
+    // End functions definitions
+    //
 
-    let startTime = new Date();
-    let lastTime;
-    let updateTime = function() {
-        let now = new Date();
-        let difference = new Date(now - startTime);
-        lastTime = difference;
-        let playTimeMinutes = difference.getMinutes();
-        let playTimeSeconds = difference.getSeconds();
-        time.innerText = 'Time: ' + printTime(playTimeMinutes) + ':' + printTime(playTimeSeconds);
-    };
-    updateTime();
-    setInterval(updateTime, 1000);
+    /**********************
+     ** Running the game **
+     **********************/
 
-};
+    //
+    // table div creation
+    //
+    let context = document.getElementById('context');
 
-let createGameTable = function(numCards, cardManager){
-    let i = 0;
-    let backCard = getBackCard();
-    while(i < numCards){
-        let frontCard = getFrontCard();
+    let tableDiv = document.createElement('div');
+    tableDiv.setAttribute('id', 'table');
 
-        cardManager.createCard('card' + i, frontCard, backCard);
-        i++;
-        cardManager.createCard('card' + i, frontCard, backCard);
-        i++;
-    }
+    let scoreDiv = document.createElement('div');
+    scoreDiv.setAttribute('id', 'score');
 
-    let cards = shuffle(cardManager.cardList);
-    for(let card of cards){
-        cardManager.append(card);
-    }
+    let remainingP = document.createElement('p');
+    let time = document.createElement('p');
+    scoreDiv.appendChild(remainingP);
+    scoreDiv.appendChild(time);
+
+    setStyle(scoreDiv, {
+        'position': 'absolute',
+        'bottom': 0,
+        'text-align':'left',
+        'padding-left': '10px',
+    });
+    context.appendChild(tableDiv);
+    context.appendChild(scoreDiv);
+
+
+    //
+    // Game variable definition and run game
+    //
+    let card1;
+    let card2;
+    let cardManager = new CardManager(tableDiv);
+    let timer = new TimeCounter(time);
+
+    run();
 };
 
 export default memory;

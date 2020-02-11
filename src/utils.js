@@ -3,6 +3,7 @@ import Image from './Image';
 //
 // Images handling
 //
+
 // TODO: dynamic get images name, for all images (min: 3, max: 10) ?
 let images = ['cats','chicken','computer','dory','hero','mwt','robot','rose',
     'sun','tree'];
@@ -43,6 +44,39 @@ let printTime = function(time){
 };
 
 /**
+ * A timer that counts the played time
+ */
+let TimeCounter = function(timeHTML){
+    let lastTime;
+    let startTime;
+
+    let updateTime = function() {
+        let now = new Date();
+        let difference = new Date(now - startTime);
+        lastTime = difference;
+        let playTimeMinutes = difference.getMinutes();
+        let playTimeSeconds = difference.getSeconds();
+        timeHTML.innerText = 'Time: ' + printTime(playTimeMinutes) + ':' + printTime(playTimeSeconds);
+    };
+
+    // functions
+    this.start = function() {
+        startTime = new Date();
+
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        return startTime;
+    };
+
+    this.stop = function() {
+        clearInterval(updateTime);
+
+        return lastTime;
+    };
+};
+
+/**
  * A possible implementation of Fisher-Yates shuffle algorithm
  *
  * Algorithm:
@@ -71,5 +105,6 @@ export {
     setStyle,
     clearHTML,
     printTime,
+    TimeCounter,
     shuffle,
 };

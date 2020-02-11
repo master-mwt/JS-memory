@@ -7,8 +7,8 @@ import memory from "./memory";
  */
 let welcome = function () {
     // Listener function definition
-    let submitListenerFunction = function (e) {
-        let formData = new FormData(e.target);
+    let submitListenerFunction = function (event) {
+        let formData = new FormData(event.target);
         let data = Number(formData.get('radioTable'));
 
         if(data === 6 || data === 12 || data === 20){
@@ -20,7 +20,7 @@ let welcome = function () {
             memory(data);
         }
 
-        e.preventDefault();
+        event.preventDefault();
     };
     // End listener function definition
 
