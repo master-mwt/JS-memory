@@ -4,8 +4,13 @@ let CardManager = function(context) {
 
   let cardList = [];
   let remaining = 0;
+  this.cardList = cardList;
+  this.remaining = remaining;
   let _this = this;
 
+  //
+  // Functions
+  //
   this.createCard = function(id, frontCard, backCard) {
     let card = new Card(id, frontCard, backCard);
     this.cardList.push(card);
@@ -34,9 +39,6 @@ let CardManager = function(context) {
   this.append = function(card) {
     card.attach(context);
   };
-
-  this.cardList = cardList;
-  this.remaining = remaining;
 
 };
 

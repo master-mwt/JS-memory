@@ -1,5 +1,27 @@
 import Image from './Image';
 
+//
+// Images handling
+//
+// TODO: dynamic get images name, for all images (min: 3, max: 10) ?
+let images = ['cats','chicken','computer','dory','hero','mwt','robot','rose',
+    'sun','tree'];
+
+let getFrontCard = function() {
+    let index = Math.floor(Math.random() * images.length);
+    let image = images[index];
+    images.splice(index, 1);
+
+    return new Image(image);
+};
+
+let getBackCard = function() {
+    return new Image('backcard');
+};
+
+//
+// Useful utilities
+//
 let setStyle = function(item, style){
     for(let property in style){
         item.style[property] = style[property];
@@ -12,24 +34,16 @@ let clearHTML = function (item) {
     }
 };
 
-// TODO: dynamic get images name, for all images (min: 3, max: 10) ?
-let images = ['cats','chicken','computer','dory','hero','mwt','robot','rose',
-    'sun','tree'];
-
-let getFrontCard = function() {
-    let index = Math.floor(Math.random()*images.length);
-    let image = images[index];
-    images.splice(index, 1);
-
-    return new Image(image);
-};
-
-let getBackCard = function() {
-    return new Image('backcard');
+let printTime = function(time){
+    if(time > 9){
+        return "" + time;
+    } else {
+        return "0" + time;
+    }
 };
 
 /**
- * A possible implementation of Fisher-Yates shuffle
+ * A possible implementation of Fisher-Yates shuffle algorithm
  *
  * Algorithm:
  * -- To shuffle an array a of n elements (indices 0..n-1):
@@ -52,9 +66,10 @@ let shuffle = function(array) {
 };
 
 export {
-    setStyle,
-    clearHTML,
     getFrontCard,
     getBackCard,
+    setStyle,
+    clearHTML,
+    printTime,
     shuffle,
 };

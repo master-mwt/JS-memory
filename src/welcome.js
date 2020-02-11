@@ -2,12 +2,30 @@ import {clearHTML, setStyle} from "./utils";
 import memory from "./memory";
 
 /**
- * This function renders a form where there is a choice for the number of cards in the game
+ * This function renders a form where there is a choice for the number of cards
+ * in the game
  */
 let welcome = function () {
+    // Listener function definition
+    let submitListenerFunction = function (e) {
+        let formData = new FormData(e.target);
+        let data = Number(formData.get('radioTable'));
+
+        if(data === 6 || data === 12 || data === 20){
+            // cleaning
+            form.removeEventListener('submit', submitListenerFunction);
+            clearHTML(context);
+
+            // start game
+            memory(data);
+        }
+
+        e.preventDefault();
+    };
+    // End listener function definition
+
 
     let root = document.getElementById('root');
-
     let context = document.createElement('div');
     context.setAttribute('id','context');
 
@@ -44,6 +62,10 @@ let welcome = function () {
         inputDiv.appendChild(radioTableDiv);
     }
 
+    setStyle(inputDiv, {
+        'margin-bottom': '15px',
+    });
+
     form.appendChild(inputDiv);
 
     let buttonDiv = document.createElement('div');
@@ -54,27 +76,8 @@ let welcome = function () {
     buttonDiv.appendChild(button);
     form.appendChild(buttonDiv);
 
-    setStyle(inputDiv, {
-        'margin-bottom': '15px',
-    });
-
-
-    let submitListenerFunction = function (e) {
-        let formData = new FormData(e.target);
-        let data = Number(formData.get('radioTable'));
-
-        if(data === 6 || data === 12 || data === 20){
-            form.removeEventListener('submit',submitListenerFunction);
-            clearHTML(context);
-
-            memory(data);
-        }
-
-        e.preventDefault();
-
-    };
-
-    form.addEventListener('submit',submitListenerFunction,false);
+    // binding listener and event
+    form.addEventListener('submit', submitListenerFunction,false);
 
     context.appendChild(form);
     root.appendChild(context);

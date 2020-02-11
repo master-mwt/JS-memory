@@ -2,9 +2,10 @@ import CardManager from './CardManager';
 import {
     clearHTML,
     getBackCard,
-    getFrontCard,
+    getFrontCard, printTime,
     setStyle, shuffle,
 } from './utils';
+import victory from './victory';
 
 // TODO: refactoring
 let memory = function (tableDimension) {
@@ -30,14 +31,16 @@ let memory = function (tableDimension) {
 
     let cardManager = new CardManager(tableDiv);
 
-    createTable(Number.parseInt(tableDimension), cardManager);
+    createGameTable(Number.parseInt(tableDimension), cardManager);
 
     let card1;
     let card2;
     remainingP.innerText = 'Remaining: ' + cardManager.remaining;
 
     let clickListener = (event) => {
-        if(event.target.getAttribute('id').includes('card') && !(event.target.getAttribute('removed'))){
+        let idTarget = event.target.getAttribute('id');
+        if(idTarget && idTarget.includes('card') &&
+            !(event.target.getAttribute('removed'))){
             // click on card
             gameMove(event.target);
         }
@@ -49,7 +52,7 @@ let memory = function (tableDimension) {
 
         if(!card1){
             card1 = card;
-            card1.dispatchEvent(new Event('choiceCard'));
+            card1.dispatchEvent(new Event('chosen'));
 
         } else if(!card2){
 
@@ -58,21 +61,21 @@ let memory = function (tableDimension) {
                 return;
             }
             card2 = card;
-            card2.dispatchEvent(new Event('choiceCard'));
+            card2.dispatchEvent(new Event('chosen'));
 
             if(card1.getAttribute('cardimage') === card2.getAttribute('cardimage')){
-                // handle win move
-                setTimeout(winMove, 2000);
+                // handling good choice
+                setTimeout(goodChoice, 2000);
 
             } else {
-                // not win move
-                setTimeout(choiceClear, 2000);
+                // handling bad choice
+                setTimeout(badChoice, 2000);
             }
         }
 
     };
 
-    let winMove = function() {
+    let goodChoice = function() {
         card1.dispatchEvent(new Event('removeCard'));
         card2.dispatchEvent(new Event('removeCard'));
 
@@ -83,52 +86,27 @@ let memory = function (tableDimension) {
 
         if(cardManager.remaining === 0){
             // victory condition satisfied
-            win();
+            winGame();
         }
     };
 
-    let choiceClear = function() {
-        card1.dispatchEvent(new Event('choiceClearedCard'));
-        card2.dispatchEvent(new Event('choiceClearedCard'));
+    let badChoice = function() {
+        card1.dispatchEvent(new Event('reject'));
+        card2.dispatchEvent(new Event('reject'));
 
         card1 = undefined;
         card2 = undefined;
     };
 
-
-    let reloadGame = () => {
-        location.reload();
-    };
-
-    let win = function(){
+    let winGame = function(){
         clearInterval(updateTime);
         context.removeEventListener('click',clickListener);
         clearHTML(context);
 
-        let h1 = document.createElement('h1');
-        h1.appendChild(document.createTextNode('Congratulations!'));
-        context.appendChild(h1);
-        let p = document.createElement('p');
-        p.appendChild(document.createTextNode('You won in ' + printTime(lastTime.getMinutes()) + ':' + printTime(lastTime.getSeconds())));
-        context.appendChild(p);
-        let button = document.createElement('button');
-        button.appendChild(document.createTextNode('Play again'));
-        button.setAttribute('id', 'playagain');
-        button.addEventListener('click', reloadGame, false);
-        context.appendChild(button);
-
+        victory(lastTime);
     };
 
     let startTime = new Date();
-
-    let printTime = function(time){
-        if(time > 9){
-            return "" + time;
-        } else {
-            return "0" + time;
-        }
-    };
-
     let lastTime;
     let updateTime = function() {
         let now = new Date();
@@ -143,7 +121,7 @@ let memory = function (tableDimension) {
 
 };
 
-let createTable = function(numCards, cardManager){
+let createGameTable = function(numCards, cardManager){
     let i = 0;
     let backCard = getBackCard();
     while(i < numCards){
