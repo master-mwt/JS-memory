@@ -1,4 +1,4 @@
-import {printTime} from './utils';
+import {printTime} from './utils/helpers';
 
 let reloadGame = () => {
   location.reload();

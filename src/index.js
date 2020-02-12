@@ -1,4 +1,4 @@
-import {setStyle} from "./utils";
+import {setStyle} from "./utils/helpers";
 import welcome from "./welcome";
 
 /**
@@ -15,7 +15,7 @@ window.addEventListener('load',function(){
     setStyle(root, {
         'margin': 'auto',
         'width': '50%',
-        'border': '3px solid red',
+        'border': '1px solid grey',
         'padding': '150px 0',
         'text-align': 'center',
         'position':'relative',
@@ -24,7 +24,7 @@ window.addEventListener('load',function(){
     // append it to the <body>
     body.appendChild(root);
 
-    // start the memory game welcome screen
+    // start the welcome screen
     welcome();
 
 },false);

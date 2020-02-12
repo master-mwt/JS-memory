@@ -1,9 +1,7 @@
-import {setStyle} from './utils';
+import {setStyle} from '../utils/helpers';
 
 // TODO: graphical effects
 let Card = function(id, frontCard, backCard) {
-
-  Card.prototype.setStyle = setStyle;
   let div;
   let _this = this;
 
@@ -135,6 +133,10 @@ let Card = function(id, frontCard, backCard) {
 
   // call to init
   init();
+};
+
+Card.prototype = {
+  setStyle: setStyle,
 };
 
 export default Card;

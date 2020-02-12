@@ -7,7 +7,7 @@ JS Course Project in [Master MWT](http://mwt.disim.univaq.it/).
 This is a Javascript implementation of the game 'Memory'.
 
 This project uses [npm](https://www.npmjs.com/) package manager and [webpack](https://webpack.js.org/) module bundler.
-
+(file-loader too)
 ## Structure
 
 ##### Directory tree:
@@ -22,7 +22,7 @@ This project uses [npm](https://www.npmjs.com/) package manager and [webpack](ht
 │   ├── CardManager.js
 │   ├── index.js
 │   ├── memory.js
-│   ├── utils.js
+│   ├── helpers.js
 │   └── welcome.js
 ├── package.json
 ├── package-lock.json
@@ -40,7 +40,7 @@ This project uses [npm](https://www.npmjs.com/) package manager and [webpack](ht
     * CardManager.js
     * index.js
     * memory.js
-    * utils.js
+    * helpers.js
     * welcome.js
 
 ## Author

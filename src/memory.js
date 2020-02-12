@@ -1,13 +1,12 @@
-import CardManager from './CardManager';
+import CardManager from './domain/CardManager';
 import {
     clearHTML,
-    getBackCard,
-    getFrontCard,
     setStyle,
     shuffle,
     TimeCounter,
-} from './utils';
+} from './utils/helpers';
 import victory from './victory';
+import ImageUtils from './utils/ImageUtils';
 
 let memory = function (tableDimension) {
 
@@ -30,9 +29,11 @@ let memory = function (tableDimension) {
 
     let createGameTable = function(numCards){
         let i = 0;
-        let backCard = getBackCard();
+        let imageUtils = new ImageUtils();
+
+        let backCard = imageUtils.getBackCard();
         while(i < numCards){
-            let frontCard = getFrontCard();
+            let frontCard = imageUtils.getFrontCard();
 
             cardManager.createCard('card' + i, frontCard, backCard);
             cardManager.createCard('card' + (i + 1), frontCard, backCard);

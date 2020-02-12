@@ -1,4 +1,4 @@
-import {clearHTML, setStyle} from "./utils";
+import {clearHTML, setStyle} from "./utils/helpers";
 import memory from "./memory";
 
 /**
