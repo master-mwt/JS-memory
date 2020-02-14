@@ -1,4 +1,4 @@
-import {printTime} from './utils/helpers';
+import {printTime, setStyle} from './utils/helpers';
 
 let reloadGame = () => {
   location.reload();
@@ -21,6 +21,12 @@ function victory(victoryTime) {
   let button = document.createElement('button');
   button.appendChild(document.createTextNode('Play again'));
   button.addEventListener('click', reloadGame, false);
+  setStyle(button, {
+    'border-radius': '15px',
+    'width': '90px',
+    'height': '40px',
+    'margin-top': '15px',
+  });
   context.appendChild(button);
 }
 

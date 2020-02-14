@@ -139,14 +139,31 @@ let memory = function (tableDimension) {
 
     let remainingP = document.createElement('p');
     let time = document.createElement('p');
+    let back = document.createElement('button');
+    let backText = document.createTextNode('Back');
     scoreDiv.appendChild(remainingP);
+    scoreDiv.appendChild(back);
     scoreDiv.appendChild(time);
+    back.appendChild(backText);
+    back.addEventListener('click', function () {
+        location.reload();
+    }, false);
+
 
     setStyle(scoreDiv, {
         'position': 'absolute',
         'bottom': 0,
         'text-align':'left',
         'padding-left': '10px',
+        'width': '95%',
+    });
+
+    setStyle(back, {
+        'border-radius': '15px',
+        'float': 'right',
+        'margin-left': '50px',
+        'width': '60px',
+        'height': '30px',
     });
     context.appendChild(tableDiv);
     context.appendChild(scoreDiv);

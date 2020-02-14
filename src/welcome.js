@@ -83,6 +83,12 @@ let welcome = function () {
     button.setAttribute('type','submit');
     let buttonText = document.createTextNode('Play!');
     button.appendChild(buttonText);
+    setStyle(button, {
+        'border-radius': '15px',
+        'width': '80px',
+        'height': '30px',
+        'margin-top': '15px',
+    });
     buttonDiv.appendChild(button);
     form.appendChild(buttonDiv);
 

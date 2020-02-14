@@ -19,6 +19,7 @@ window.addEventListener('load',function(){
         'padding': '150px 0',
         'text-align': 'center',
         'position':'relative',
+        'border-radius': '25px',
     });
 
     // append it to the <body>
