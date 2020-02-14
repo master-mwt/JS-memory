@@ -5,6 +5,8 @@ let Card = function(id, frontCard, backCard) {
   let div;
   let _this = this;
 
+  let front, back;
+
   // init function
   let init = (function() {
 
@@ -25,6 +27,8 @@ let Card = function(id, frontCard, backCard) {
 
       div.removeEventListener('mouseover', listenerFunctionOver);
       div.removeEventListener('mouseout', listenerFunctionOut);
+      div.removeEventListener('click', listenerFunctionClick);
+      removeClickEffect();
 
       div.setAttribute('removed', 'removed');
     };
@@ -38,6 +42,7 @@ let Card = function(id, frontCard, backCard) {
       });
       div.removeEventListener('mouseover', listenerFunctionOver);
       div.removeEventListener('mouseout', listenerFunctionOut);
+      div.removeEventListener('click', listenerFunctionClick);
     };
 
     this.reject = function() {
@@ -49,6 +54,8 @@ let Card = function(id, frontCard, backCard) {
       });
       div.addEventListener('mouseover', listenerFunctionOver, false);
       div.addEventListener('mouseout', listenerFunctionOut, false);
+      div.addEventListener('click', listenerFunctionClick, false);
+      removeClickEffect();
     };
 
     this.setImages = function(frontCard, backCard){
@@ -80,6 +87,10 @@ let Card = function(id, frontCard, backCard) {
     // init variables and listeners
     //
     div = document.createElement('div');
+    /*front = document.createElement('img');
+    back = document.createElement('img');
+    div.appendChild(front);
+    div.appendChild(back);*/
 
     // set card style
     this.setStyle(div,{
@@ -90,6 +101,8 @@ let Card = function(id, frontCard, backCard) {
       display: "inline-block",
       margin: "5px",
       position: "relative",
+      'transform-style': 'preserve-3d',
+      transition: 'transform .5s',
     });
 
     // binding listeners and events
@@ -97,6 +110,7 @@ let Card = function(id, frontCard, backCard) {
     div.addEventListener('mouseout', listenerFunctionOut, false);
     div.addEventListener('chosen', listenerFunctionChosen, false);
     div.addEventListener('reject', listenerFunctionReject, false);
+    div.addEventListener('click', listenerFunctionClick, false);
 
     // set id, frontCard, backCard
     if(id && frontCard && backCard){
@@ -129,6 +143,33 @@ let Card = function(id, frontCard, backCard) {
 
   let listenerFunctionReject = () => {
     this.reject();
+  };
+
+  let listenerFunctionClick = () => {
+    restoreClickEffect();
+  };
+
+
+  let restoreClickEffect = () => {
+    this.setStyle(div, {
+      transform: 'scale(.97)',
+      transition: 'transform .4s',
+    });
+    flip();
+  };
+
+  let removeClickEffect = () => {
+    this.setStyle(div, {
+      transform: 'none',
+      transition: 'none',
+    });
+  };
+
+  let flip = () => {
+
+    this.setStyle(div, {
+      transform: 'rotateY(180deg)',
+    });
   };
 
   // call to init

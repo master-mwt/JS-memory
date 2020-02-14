@@ -130,6 +130,10 @@ let memory = function (tableDimension) {
     let tableDiv = document.createElement('div');
     tableDiv.setAttribute('id', 'table');
 
+    setStyle(tableDiv, {
+        perspective: '1000px',
+    });
+
     let scoreDiv = document.createElement('div');
     scoreDiv.setAttribute('id', 'score');
 

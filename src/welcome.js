@@ -5,6 +5,7 @@ import memory from "./memory";
  * This function renders a form where there is a choice for the number of cards
  * in the game
  */
+// TODO: Button back or reload
 let welcome = function () {
     // Listener function definition
     let submitListenerFunction = function (event) {
@@ -12,6 +13,15 @@ let welcome = function () {
         let data = Number(formData.get('radioTable'));
 
         if(data === 6 || data === 12 || data === 20){
+
+            if(data === 20){
+                // adjust root dimension div
+                let root = document.querySelector('#root');
+                setStyle(root,{
+                    'width': '80%',
+                });
+            }
+
             // cleaning
             form.removeEventListener('submit', submitListenerFunction);
             clearHTML(context);
