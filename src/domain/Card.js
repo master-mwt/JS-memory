@@ -28,6 +28,7 @@ let Card = function(id, frontCard, backCard) {
       //removeClickEffect();
 
       div.setAttribute('removed', 'removed');
+      console.log('detach');
     };
 
     this.chosen = function() {
@@ -39,6 +40,8 @@ let Card = function(id, frontCard, backCard) {
       div.removeEventListener('mouseover', listenerFunctionOver);
       div.removeEventListener('mouseout', listenerFunctionOut);
       //div.removeEventListener('click', listenerFunctionClick);
+
+      console.log('chosen');
     };
 
     this.reject = function() {
@@ -51,6 +54,7 @@ let Card = function(id, frontCard, backCard) {
       div.addEventListener('mouseout', listenerFunctionOut, false);
       //div.addEventListener('click', listenerFunctionClick, false);
       //removeClickEffect();
+      console.log('reject');
     };
 
     this.setImages = function(frontCard, backCard){
