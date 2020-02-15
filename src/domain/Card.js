@@ -24,8 +24,7 @@ let Card = function(id, frontCard, backCard) {
 
       div.removeEventListener('mouseover', listenerFunctionOver);
       div.removeEventListener('mouseout', listenerFunctionOut);
-      //div.removeEventListener('click', listenerFunctionClick);
-      //removeClickEffect();
+      removeClickEffect();
 
       div.setAttribute('removed', 'removed');
       console.log('detach');
@@ -39,7 +38,7 @@ let Card = function(id, frontCard, backCard) {
       });
       div.removeEventListener('mouseover', listenerFunctionOver);
       div.removeEventListener('mouseout', listenerFunctionOut);
-      //div.removeEventListener('click', listenerFunctionClick);
+      clickEffect();
 
       console.log('chosen');
     };
@@ -52,8 +51,7 @@ let Card = function(id, frontCard, backCard) {
       });
       div.addEventListener('mouseover', listenerFunctionOver, false);
       div.addEventListener('mouseout', listenerFunctionOut, false);
-      //div.addEventListener('click', listenerFunctionClick, false);
-      //removeClickEffect();
+      removeClickEffect();
       console.log('reject');
     };
 
@@ -105,7 +103,6 @@ let Card = function(id, frontCard, backCard) {
     div.addEventListener('mouseout', listenerFunctionOut, false);
     div.addEventListener('chosen', listenerFunctionChosen, false);
     div.addEventListener('reject', listenerFunctionReject, false);
-    //div.addEventListener('click', listenerFunctionClick, false);
 
     // set id, frontCard, backCard
     if(id && frontCard && backCard){
@@ -139,25 +136,23 @@ let Card = function(id, frontCard, backCard) {
     this.reject();
   };
 
-  /*let listenerFunctionClick = () => {
-    restoreClickEffect();
-  };*/
 
-
-  /*let restoreClickEffect = () => {
+  let clickEffect = () => {
+    console.log('restore click');
     this.setStyle(div, {
       transform: 'scale(.97)',
       transition: 'transform .4s',
     });
-    flip();
-  };*/
+    //flip();
+  };
 
-  /*let removeClickEffect = () => {
+  let removeClickEffect = () => {
+    console.log('remove click');
     this.setStyle(div, {
       transform: 'none',
       transition: 'none',
     });
-  };*/
+  };
 
   /*let flip = () => {
 
