@@ -134,6 +134,7 @@ let memory = function (tableDimension) {
 
     setStyle(tableDiv, {
         'perspective': '1000px',
+        '-webkit-perspective': '1000px',
     });
 
     let scoreDiv = document.createElement('div');

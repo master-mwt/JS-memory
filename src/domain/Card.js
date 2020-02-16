@@ -1,6 +1,6 @@
 import {setStyle} from '../utils/helpers';
 
-// TODO: graphical hover effects changing
+// TODO: cross-browser transition check
 let Card = function(id, frontCard, backCard) {
   let div;
   let front, back;
@@ -43,14 +43,20 @@ let Card = function(id, frontCard, backCard) {
       'margin': '5px',
       'position': 'relative',
       'transform-style': 'preserve-3d',
-      'transition': 'transform 1s',
+
+      'transition': 'transform .6s',
+      '-webkit-transition': 'transform .6s',
+      '-moz-transition': 'transform .6s',
+      '-o-transition': 'transform .6s',
+      '-ms-transition': 'transform .6s',
     });
 
     this.setStyle(back, {
-      'position': 'absolute',
+      /*'position': 'absolute',*/ // bug in Firefox if active !
       'height': '100%',
       'width': '100%',
       'backface-visibility': 'hidden',
+      '-webkit-backface-visibility': 'hidden',
     });
 
     this.setStyle(front, {
@@ -58,7 +64,11 @@ let Card = function(id, frontCard, backCard) {
       'height': '100%',
       'width': '100%',
       'backface-visibility': 'hidden',
+      '-webkit-backface-visibility': 'hidden',
+
       'transform': 'rotateY(180deg)',
+      '-webkit-transform': 'rotateY(180deg)',
+      '-ms-transform': 'rotateY(180deg)',
     });
 
   }).bind(this);
@@ -76,11 +86,10 @@ let Card = function(id, frontCard, backCard) {
     back.style.backgroundImage = 'none';
 
     this.setStyle(div, {
-      'background-color': 'white',
       'border': 'none',
-      'box-shadow': '0px 0px 0px white',
     });
 
+    removeHoverEffect();
     div.removeEventListener('mouseover', listenerFunctionOver);
     div.removeEventListener('mouseout', listenerFunctionOut);
     removeClickEffect();
@@ -90,9 +99,7 @@ let Card = function(id, frontCard, backCard) {
   };
 
   this.chosen = function() {
-    this.setStyle(div, {
-      'box-shadow': '10px 10px 5px grey',
-    });
+    hoverEffect();
     div.removeEventListener('mouseover', listenerFunctionOver);
     div.removeEventListener('mouseout', listenerFunctionOut);
     clickEffect();
@@ -101,9 +108,7 @@ let Card = function(id, frontCard, backCard) {
   };
 
   this.reject = function() {
-    this.setStyle(div, {
-      'box-shadow': '0px 0px 0px white',
-    });
+    removeHoverEffect();
     div.addEventListener('mouseover', listenerFunctionOver, false);
     div.addEventListener('mouseout', listenerFunctionOut, false);
     removeClickEffect();
@@ -113,8 +118,8 @@ let Card = function(id, frontCard, backCard) {
   this.setImages = function(frontCard, backCard){
     div.setAttribute('cardimage', frontCard.name);
 
-    this.frontCard = frontCard;
-    this.backCard = backCard;
+    /*this.frontCard = frontCard;
+    this.backCard = backCard;*/
 
     this.setBackImage(backCard);
     this.setFrontImage(frontCard);
@@ -146,15 +151,11 @@ let Card = function(id, frontCard, backCard) {
 
   // listeners functions definition
   let listenerFunctionOver = () => {
-    this.setStyle(div, {
-      'box-shadow': '10px 10px 5px grey',
-    });
+    hoverEffect();
   };
 
   let listenerFunctionOut = () => {
-    this.setStyle(div, {
-      'box-shadow': '0px 0px 0px white',
-    });
+    removeHoverEffect();
   };
 
   let listenerFunctionChosen = () => {
@@ -170,7 +171,8 @@ let Card = function(id, frontCard, backCard) {
     console.log('restore click');
     this.setStyle(div, {
       'transform': 'scale(.97)',
-      'transition': 'transform .4s',
+      '-webkit-transform': 'scale(.97)',
+      '-ms-transform': 'scale(.97)',
     });
     flip();
   };
@@ -179,7 +181,8 @@ let Card = function(id, frontCard, backCard) {
     console.log('remove click');
     this.setStyle(div, {
       'transform': 'none',
-      'transition': 'none',
+      '-webkit-transform': 'none',
+      '-ms-transform': 'none',
     });
   };
 
@@ -187,6 +190,25 @@ let Card = function(id, frontCard, backCard) {
     console.log('flip');
     this.setStyle(div, {
       'transform': 'rotateY(180deg)',
+      '-webkit-transform': 'rotateY(180deg)',
+      '-ms-transform': 'rotateY(180deg)',
+    });
+  };
+
+  let hoverEffect = () => {
+    this.setStyle(div, {
+      'transform': 'scale(1.1)',
+      '-webkit-transform': 'scale(1.1)',
+      '-ms-transform': 'scale(1.1)',
+    });
+
+  };
+
+  let removeHoverEffect = () => {
+    this.setStyle(div, {
+      'transform': 'scale(1)',
+      '-webkit-transform': 'scale(1)',
+      '-ms-transform': 'scale(1)',
     });
   };
 
