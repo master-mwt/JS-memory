@@ -3,6 +3,8 @@ import {setStyle} from '../utils/helpers';
 // TODO: graphical effects
 let Card = function(id, frontCard, backCard) {
   let div;
+  let front, back;
+
   let _this = this;
 
   // init function
@@ -16,9 +18,12 @@ let Card = function(id, frontCard, backCard) {
     };
 
     this.detach = function() {
-      div.style.backgroundImage = 'none';
+      front.style.backgroundImage = 'none';
+      back.style.backgroundImage = 'none';
+
       this.setStyle(div, {
         backgroundColor: 'white',
+        'border': 'none',
         'box-shadow': '0px 0px 0px white',
       });
 
@@ -31,8 +36,6 @@ let Card = function(id, frontCard, backCard) {
     };
 
     this.chosen = function() {
-      this.setBackgroundImage(this.frontCard);
-
       this.setStyle(div, {
         'box-shadow': '10px 10px 5px grey',
       });
@@ -44,8 +47,6 @@ let Card = function(id, frontCard, backCard) {
     };
 
     this.reject = function() {
-      this.setBackgroundImage(this.backCard);
-
       this.setStyle(div, {
         'box-shadow': '0px 0px 0px white',
       });
@@ -61,14 +62,22 @@ let Card = function(id, frontCard, backCard) {
       this.frontCard = frontCard;
       this.backCard = backCard;
 
-      this.setBackgroundImage(backCard);
+      this.setBackImage(backCard);
+      this.setFrontImage(frontCard);
     };
 
-    this.setBackgroundImage = function(image) {
-      div.style.backgroundImage = `url('${image.url}')`;
-      div.style.backgroundSize = '100% 100%';
-      div.style.backgroundRepeat = 'no-repeat';
-      div.backgroundPosition = 'center';
+    this.setFrontImage = function(image) {
+      front.style.backgroundImage = `url('${image.url}')`;
+      front.style.backgroundSize = '100% 100%';
+      front.style.backgroundRepeat = 'no-repeat';
+      front.backgroundPosition = 'center';
+    };
+
+    this.setBackImage = function(image) {
+      back.style.backgroundImage = `url('${image.url}')`;
+      back.style.backgroundSize = '100% 100%';
+      back.style.backgroundRepeat = 'no-repeat';
+      back.backgroundPosition = 'center';
     };
 
     this.setId = function(id) {
@@ -84,6 +93,10 @@ let Card = function(id, frontCard, backCard) {
     // init variables and listeners
     //
     div = document.createElement('div');
+    front = document.createElement('div');
+    back = document.createElement('div');
+    div.appendChild(front);
+    div.appendChild(back);
 
     // set card style
     this.setStyle(div,{
@@ -91,10 +104,26 @@ let Card = function(id, frontCard, backCard) {
       height: "120px",
       width: "90px",
       display: "inline-block",
+      'border': '1px solid grey',
       margin: "5px",
       position: "relative",
       'transform-style': 'preserve-3d',
-      transition: 'transform .5s',
+      transition: 'transform 1s',
+    });
+
+    this.setStyle(back, {
+      'position': 'absolute',
+      'height': '100%',
+      'width': '100%',
+      'backface-visibility': 'hidden',
+    });
+
+    this.setStyle(front, {
+      'position': 'absolute',
+      'height': '100%',
+      'width': '100%',
+      'backface-visibility': 'hidden',
+      'transform': 'rotateY(180deg)',
     });
 
 
@@ -136,14 +165,14 @@ let Card = function(id, frontCard, backCard) {
     this.reject();
   };
 
-
+  // click graphical effects functions
   let clickEffect = () => {
     console.log('restore click');
     this.setStyle(div, {
       transform: 'scale(.97)',
       transition: 'transform .4s',
     });
-    //flip();
+    flip();
   };
 
   let removeClickEffect = () => {
@@ -154,12 +183,12 @@ let Card = function(id, frontCard, backCard) {
     });
   };
 
-  /*let flip = () => {
-
+  let flip = () => {
+    console.log('flip');
     this.setStyle(div, {
-      transform: 'rotateY(360deg)',
+      transform: 'rotateY(180deg)',
     });
-  };*/
+  };
 
   // call to init
   init();

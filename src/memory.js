@@ -48,11 +48,13 @@ let memory = function (tableDimension) {
 
     // click listener function
     let clickOnCardListener = (event) => {
-        let idTarget = event.target.getAttribute('id');
+        let cardTarget = event.target.parentElement;
+        let idTarget = cardTarget.getAttribute('id');
+
         if(idTarget && idTarget.includes('card') &&
-            !(event.target.getAttribute('removed'))){
-            // click on card
-            gameMove(event.target);
+            !(cardTarget.getAttribute('removed'))){
+            // click on not removed card
+            gameMove(cardTarget);
         }
     };
     // end click listener function
@@ -66,8 +68,8 @@ let memory = function (tableDimension) {
         } else if(!card2){
 
             if(card1 === card){
-                // click on the same card
-                return;
+                // click on the same chosen card
+                return false;
             }
             card2 = card;
             card2.dispatchEvent(new Event('chosen'));
