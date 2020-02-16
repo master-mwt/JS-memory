@@ -18,10 +18,8 @@ import tree from '../img/tree.jpg';
  * @constructor
  */
 let Image = function(image) {
-  // TODO: Better method ?
-
-  this.name = image.replace('.jpg','').replace('images/','');
   this.url = image;
+  this.name = image.replace('.jpg','').replace('images/','');
 };
 
 /**

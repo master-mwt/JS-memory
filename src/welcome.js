@@ -5,7 +5,6 @@ import memory from "./memory";
  * This function renders a form where there is a choice for the number of cards
  * in the game
  */
-// TODO: Button back or reload
 let welcome = function () {
     // Listener function definition
     let submitListenerFunction = function (event) {
