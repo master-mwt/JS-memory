@@ -6,23 +6,34 @@ JS Course Project in [Master MWT](http://mwt.disim.univaq.it/).
 
 This is a Javascript implementation of the game 'Memory'.
 
-This project uses [npm](https://www.npmjs.com/) package manager and [webpack](https://webpack.js.org/) module bundler.
-(file-loader too)
-## Structure
+This project uses [npm](https://www.npmjs.com/) package manager, [webpack](https://webpack.js.org/) module bundler and 
+the [file-loader](https://www.npmjs.com/package/file-loader) package as an addon to webpack.
+
+## Author
+* **[Riccardo Armando Di Prinzio](mailto:riccardoarmando.diprinzio@student.univaq.it)** [Matr: 268568]
+
+## Project structure
 
 ##### Directory tree:
-<!-- TODO: Directory tree refresh -->
 <pre>
 /
 ├── dist
+│   ├── images
+│   │   └── ...
 │   ├── index.html
 │   └── main.js
 ├── src
-│   ├── Card.js
-│   ├── CardManager.js
+│   ├── domain
+│   │   ├── Card.js
+│   │   └── CardManager.js
+│   ├── img
+│   │   └── ...
+│   ├── utils
+│   │   ├── helpers.js
+│   │   └── ImageUtils.js
 │   ├── index.js
 │   ├── memory.js
-│   ├── helpers.js
+│   ├── victory.js
 │   └── welcome.js
 ├── package.json
 ├── package-lock.json
@@ -30,18 +41,25 @@ This project uses [npm](https://www.npmjs.com/) package manager and [webpack](ht
 └── webpack.config.js
 </pre>
 
-##### Directories and files:
-* dist: directory that contains the production code (index.html and a (minified) main.js).
+##### Directories and files description:
+* **dist**: directory that contains the production code (index.html and a (minified) main.js) and the utilized (emitted) 
+images.
 
-* node_modules: npm modules directory.
+* **node_modules**: npm modules directory.
 
-* src: directory that contains all the application's JS source code.
-    * Card.js
-    * CardManager.js
-    * index.js
-    * memory.js
-    * helpers.js
-    * welcome.js
+* **src**: directory that contains all the application's JS source code and assets.
 
-## Author
-* **[Riccardo Armando Di Prinzio](mailto:riccardoarmando.diprinzio@student.univaq.it)** [Matr: 268568]
+    * **domain**: directory that contains the model objects.
+        * **Card.js**: object that represents a card structure.
+        * **CardManager.js**: object that deals with cards.
+        
+    * **img**: directory that contains memory card's images.
+    
+    * **utils**: directory that contains the handling logic for images and general helpers functions and objects.
+        * **helpers.js**: file that contains helpers functions and objects.
+        * **ImageUtils.js**: file that contains Image and ImageUtils objects that handle images.
+        
+    * **index.js**: it creates the root div and calls the welcome file (this file is webpack entry point).
+    * **memory.js**: the Memory game.
+    * **victory.js**: it is called by the memory file if the player win.
+    * **welcome.js**: it is called by the index file, contains the welcome screen.
