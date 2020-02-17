@@ -2,12 +2,10 @@ import Card from './Card';
 
 let CardManager = function (context) {
 
-    let cardList = [];
-    let remaining = 0;
-    let _this = this;
+    this.cardList = [];
+    this.remaining = 0;
 
-    this.cardList = cardList;
-    this.remaining = remaining;
+    let _this = this;
 
     //
     // Functions
@@ -26,8 +24,8 @@ let CardManager = function (context) {
 
     this.removeCard = function (card) {
         let i;
-        for (let index in cardList) {
-            if (cardList[index] === card) {
+        for (let index in this.cardList) {
+            if (this.cardList[index] === card) {
                 i = index;
                 break;
             }

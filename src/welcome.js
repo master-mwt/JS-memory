@@ -43,7 +43,7 @@ let welcome = function () {
     context.appendChild(h1);
 
     let p = document.createElement('p');
-    p.appendChild(document.createTextNode('Insert the number of cards'));
+    p.appendChild(document.createTextNode('Choose the number of cards'));
     context.appendChild(p);
 
     let form = document.createElement('form');

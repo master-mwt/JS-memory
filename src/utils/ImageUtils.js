@@ -34,6 +34,7 @@ let ImageUtils = function () {
 
 ImageUtils.prototype = {
 
+    // return a random picked image
     getFrontCard: function () {
         let index = Math.floor(Math.random() * this.images.length);
         let image = this.images[index];
@@ -42,6 +43,7 @@ ImageUtils.prototype = {
         return new Image(image);
     },
 
+    // return the backcard image
     getBackCard: function () {
         return new Image(backcard);
     },

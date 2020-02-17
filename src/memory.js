@@ -48,6 +48,7 @@ let memory = function (tableDimension) {
 
     // click listener function
     let clickOnCardListener = (event) => {
+        // get the card div (not the face card div)
         let cardTarget = event.target.parentElement;
         let idTarget = cardTarget.getAttribute('id');
 
@@ -83,7 +84,6 @@ let memory = function (tableDimension) {
                 setTimeout(badChoice, 2000);
             }
         }
-
     };
 
     let goodChoice = function () {
@@ -124,9 +124,9 @@ let memory = function (tableDimension) {
      ** Running the game **
      **********************/
 
-        //
-        // table div creation
-        //
+    //
+    // table div creation
+    //
     let context = document.getElementById('context');
 
     let tableDiv = document.createElement('div');
