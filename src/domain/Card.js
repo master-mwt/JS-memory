@@ -1,4 +1,4 @@
-import {setStyle} from '../utils/helpers';
+import {clearImageInHTMLElement, setImageInHTMLElement, setStyle} from '../utils/helpers';
 
 // TODO: cross-browser transition check
 let Card = function (id, frontCard, backCard) {
@@ -11,7 +11,7 @@ let Card = function (id, frontCard, backCard) {
     let init = (function () {
 
         //
-        // init variables and listeners
+        // init variables and bind listeners
         //
         div = document.createElement('div');
         front = document.createElement('div');
@@ -82,8 +82,9 @@ let Card = function (id, frontCard, backCard) {
     };
 
     this.detach = function () {
-        front.style.backgroundImage = 'none';
-        back.style.backgroundImage = 'none';
+        // clear card images
+        this.clearImageInHTMLElement(front);
+        this.clearImageInHTMLElement(back);
 
         this.setStyle(div, {
             'border': 'none',
@@ -101,22 +102,8 @@ let Card = function (id, frontCard, backCard) {
     this.setImages = function (frontCard, backCard) {
         div.setAttribute('cardimage', frontCard.name);
 
-        this.setBackImage(backCard);
-        this.setFrontImage(frontCard);
-    };
-
-    this.setFrontImage = function (image) {
-        front.style.backgroundImage = `url('${image.url}')`;
-        front.style.backgroundSize = '100% 100%';
-        front.style.backgroundRepeat = 'no-repeat';
-        front.backgroundPosition = 'center';
-    };
-
-    this.setBackImage = function (image) {
-        back.style.backgroundImage = `url('${image.url}')`;
-        back.style.backgroundSize = '100% 100%';
-        back.style.backgroundRepeat = 'no-repeat';
-        back.backgroundPosition = 'center';
+        this.setImageInHTMLElement(back, backCard);
+        this.setImageInHTMLElement(front, frontCard);
     };
 
     this.setId = function (id) {
@@ -130,7 +117,7 @@ let Card = function (id, frontCard, backCard) {
 
 
     //
-    // behaviour functions
+    // behavioural functions
     //
     let chosen = function () {
         hoverEffect();
@@ -167,7 +154,11 @@ let Card = function (id, frontCard, backCard) {
         reject();
     };
 
-    // click graphical effects functions
+    //
+    // graphical effects functions
+    //
+
+    // click effect functions
     let clickEffect = () => {
         console.log('restore click');
         this.setStyle(div, {
@@ -204,7 +195,6 @@ let Card = function (id, frontCard, backCard) {
             '-webkit-transform': 'scale(1.1)',
             '-ms-transform': 'scale(1.1)',
         });
-
     };
 
     let removeHoverEffect = () => {
@@ -221,6 +211,8 @@ let Card = function (id, frontCard, backCard) {
 
 Card.prototype = {
     setStyle: setStyle,
+    setImageInHTMLElement: setImageInHTMLElement,
+    clearImageInHTMLElement: clearImageInHTMLElement,
 };
 
 export default Card;

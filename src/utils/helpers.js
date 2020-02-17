@@ -22,6 +22,17 @@ let printTime = function (time) {
     }
 };
 
+let setImageInHTMLElement = function (HTMLElement, image) {
+    HTMLElement.style.backgroundImage = `url('${image.url}')`;
+    HTMLElement.style.backgroundSize = '100% 100%';
+    HTMLElement.style.backgroundRepeat = 'no-repeat';
+    HTMLElement.backgroundPosition = 'center';
+};
+
+let clearImageInHTMLElement = function (HTMLElement) {
+    HTMLElement.style.backgroundImage = 'none';
+};
+
 /**
  * A timer that counts the played time
  *
@@ -85,6 +96,8 @@ export {
     setStyle,
     clearHTML,
     printTime,
+    setImageInHTMLElement,
+    clearImageInHTMLElement,
     TimeCounter,
     shuffle,
 };
