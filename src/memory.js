@@ -69,7 +69,7 @@ let memory = function (tableDimension) {
 
             if (card1 === card) {
                 // click on the same chosen card
-                return false;
+                return;
             }
             card2 = card;
             card2.dispatchEvent(new Event('chosen'));
@@ -135,6 +135,9 @@ let memory = function (tableDimension) {
     setStyle(tableDiv, {
         'perspective': '1000px',
         '-webkit-perspective': '1000px',
+        '-moz-perspective': '1000px',
+        '-o-perspective': '1000px',
+        '-ms-perspective': '1000px',
     });
 
     let scoreDiv = document.createElement('div');

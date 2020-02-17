@@ -29,4 +29,3 @@ module.exports = {
         ],
     },
 };
-// command: webpack --watch --info-verbosity verbose OR npx webpack

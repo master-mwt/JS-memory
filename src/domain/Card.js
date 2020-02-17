@@ -1,6 +1,5 @@
 import {clearImageInHTMLElement, setImageInHTMLElement, setStyle} from '../utils/helpers';
 
-// TODO: cross-browser transition check
 let Card = function (id, frontCard, backCard) {
     let div;
     let front, back;
@@ -55,19 +54,29 @@ let Card = function (id, frontCard, backCard) {
             /*'position': 'absolute',*/ // bug in Firefox if active !
             'height': '100%',
             'width': '100%',
+
             'backface-visibility': 'hidden',
             '-webkit-backface-visibility': 'hidden',
+            '-moz-backface-visibility': 'hidden',
+            '-o-backface-visibility': 'hidden',
+            '-ms-backface-visibility': 'hidden',
         });
 
         this.setStyle(front, {
             'position': 'absolute',
             'height': '100%',
             'width': '100%',
+
             'backface-visibility': 'hidden',
             '-webkit-backface-visibility': 'hidden',
+            '-moz-backface-visibility': 'hidden',
+            '-o-backface-visibility': 'hidden',
+            '-ms-backface-visibility': 'hidden',
 
             'transform': 'rotateY(180deg)',
             '-webkit-transform': 'rotateY(180deg)',
+            '-moz-transform': 'rotateY(180deg)',
+            '-o-transform': 'rotateY(180deg)',
             '-ms-transform': 'rotateY(180deg)',
         });
 
@@ -164,6 +173,8 @@ let Card = function (id, frontCard, backCard) {
         this.setStyle(div, {
             'transform': 'scale(.97)',
             '-webkit-transform': 'scale(.97)',
+            '-moz-transform': 'scale(.97)',
+            '-o-transform': 'scale(.97)',
             '-ms-transform': 'scale(.97)',
         });
         flip();
@@ -174,6 +185,8 @@ let Card = function (id, frontCard, backCard) {
         this.setStyle(div, {
             'transform': 'none',
             '-webkit-transform': 'none',
+            '-moz-transform': 'none',
+            '-o-transform': 'none',
             '-ms-transform': 'none',
         });
     };
@@ -184,6 +197,8 @@ let Card = function (id, frontCard, backCard) {
         this.setStyle(div, {
             'transform': 'rotateY(180deg)',
             '-webkit-transform': 'rotateY(180deg)',
+            '-moz-transform': 'rotateY(180deg)',
+            '-o-transform': 'rotateY(180deg)',
             '-ms-transform': 'rotateY(180deg)',
         });
     };
@@ -193,6 +208,8 @@ let Card = function (id, frontCard, backCard) {
         this.setStyle(div, {
             'transform': 'scale(1.1)',
             '-webkit-transform': 'scale(1.1)',
+            '-moz-transform': 'scale(1.1)',
+            '-o-transform': 'scale(1.1)',
             '-ms-transform': 'scale(1.1)',
         });
     };
@@ -201,6 +218,8 @@ let Card = function (id, frontCard, backCard) {
         this.setStyle(div, {
             'transform': 'scale(1)',
             '-webkit-transform': 'scale(1)',
+            '-moz-transform': 'scale(1)',
+            '-o-transform': 'scale(1)',
             '-ms-transform': 'scale(1)',
         });
     };
