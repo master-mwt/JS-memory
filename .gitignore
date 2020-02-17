@@ -1,4 +1,2 @@
 node_modules/
 .idea/
-# TODO: exclude dist ?
-# dist/images/

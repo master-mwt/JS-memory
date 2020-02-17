@@ -11,12 +11,12 @@ let welcome = function () {
         let formData = new FormData(event.target);
         let data = Number(formData.get('radioTable'));
 
-        if(data === 6 || data === 12 || data === 20){
+        if (data === 6 || data === 12 || data === 20) {
 
-            if(data === 20){
+            if (data === 20) {
                 // adjust root dimension div
                 let root = document.querySelector('#root');
-                setStyle(root,{
+                setStyle(root, {
                     'width': '80%',
                 });
             }
@@ -36,7 +36,7 @@ let welcome = function () {
 
     let root = document.getElementById('root');
     let context = document.createElement('div');
-    context.setAttribute('id','context');
+    context.setAttribute('id', 'context');
 
     let h1 = document.createElement('h1');
     h1.appendChild(document.createTextNode('Welcome to the Memory game!'));
@@ -47,22 +47,22 @@ let welcome = function () {
     context.appendChild(p);
 
     let form = document.createElement('form');
-    form.setAttribute('method','post');
-    form.setAttribute('id','tableForm');
+    form.setAttribute('method', 'post');
+    form.setAttribute('id', 'tableForm');
 
     let inputDiv = document.createElement('div');
 
-    for(let tableDim of [6,12,20]){
+    for (let tableDim of [6, 12, 20]) {
         let radioTableDiv = document.createElement('div');
         let radioTable = document.createElement('input');
         let labelTable = document.createElement('label');
-        radioTable.setAttribute('id','radioTable' + tableDim);
-        radioTable.setAttribute('type','radio');
-        radioTable.setAttribute('name','radioTable');
+        radioTable.setAttribute('id', 'radioTable' + tableDim);
+        radioTable.setAttribute('type', 'radio');
+        radioTable.setAttribute('name', 'radioTable');
         radioTable.setAttribute('value', tableDim.toString());
 
-        if(tableDim === 6){
-            radioTable.setAttribute('checked','checked');
+        if (tableDim === 6) {
+            radioTable.setAttribute('checked', 'checked');
         }
 
         labelTable.appendChild(document.createTextNode(tableDim + ' cards'));
@@ -79,7 +79,7 @@ let welcome = function () {
 
     let buttonDiv = document.createElement('div');
     let button = document.createElement('button');
-    button.setAttribute('type','submit');
+    button.setAttribute('type', 'submit');
     let buttonText = document.createTextNode('Play!');
     button.appendChild(buttonText);
     setStyle(button, {
@@ -92,7 +92,7 @@ let welcome = function () {
     form.appendChild(buttonDiv);
 
     // binding listener and event
-    form.addEventListener('submit', submitListenerFunction,false);
+    form.addEventListener('submit', submitListenerFunction, false);
 
     context.appendChild(form);
     root.appendChild(context);

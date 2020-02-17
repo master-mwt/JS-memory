@@ -17,9 +17,9 @@ import tree from '../img/tree.jpg';
  * @param image The image path
  * @constructor
  */
-let Image = function(image) {
-  this.url = image;
-  this.name = image.replace('.jpg','').replace('images/','');
+let Image = function (image) {
+    this.url = image;
+    this.name = image.replace('.jpg', '').replace('images/', '');
 };
 
 /**
@@ -27,24 +27,24 @@ let Image = function(image) {
  *
  * @constructor
  */
-let ImageUtils = function(){
-  this.images = [cats, chicken, computer, dory, hero, mwt, robot, rose,
-    sun, tree];
+let ImageUtils = function () {
+    this.images = [cats, chicken, computer, dory, hero, mwt, robot, rose,
+        sun, tree];
 };
 
 ImageUtils.prototype = {
 
-  getFrontCard: function() {
-    let index = Math.floor(Math.random() * this.images.length);
-    let image = this.images[index];
-    this.images.splice(index, 1);
+    getFrontCard: function () {
+        let index = Math.floor(Math.random() * this.images.length);
+        let image = this.images[index];
+        this.images.splice(index, 1);
 
-    return new Image(image);
-  },
+        return new Image(image);
+    },
 
-  getBackCard: function() {
-    return new Image(backcard);
-  },
+    getBackCard: function () {
+        return new Image(backcard);
+    },
 };
 
 export default ImageUtils;

@@ -13,7 +13,7 @@ let memory = function (tableDimension) {
     //
     // Game functions definitions
     //
-    let run = function(){
+    let run = function () {
         //
         // Populate table with cards
         //
@@ -27,12 +27,12 @@ let memory = function (tableDimension) {
         timer.start();
     };
 
-    let createGameTable = function(numCards){
+    let createGameTable = function (numCards) {
         let i = 0;
         let imageUtils = new ImageUtils();
 
         let backCard = imageUtils.getBackCard();
-        while(i < numCards){
+        while (i < numCards) {
             let frontCard = imageUtils.getFrontCard();
 
             cardManager.createCard('card' + i, frontCard, backCard);
@@ -41,7 +41,7 @@ let memory = function (tableDimension) {
         }
 
         let cards = shuffle(cardManager.cardList);
-        for(let card of cards){
+        for (let card of cards) {
             cardManager.append(card);
         }
     };
@@ -51,30 +51,30 @@ let memory = function (tableDimension) {
         let cardTarget = event.target.parentElement;
         let idTarget = cardTarget.getAttribute('id');
 
-        if(idTarget && idTarget.includes('card') &&
-            !(cardTarget.getAttribute('removed'))){
+        if (idTarget && idTarget.includes('card') &&
+            !(cardTarget.getAttribute('removed'))) {
             // click on not removed card
             gameMove(cardTarget);
         }
     };
     // end click listener function
 
-    let gameMove = function(card) {
+    let gameMove = function (card) {
 
-        if(!card1){
+        if (!card1) {
             card1 = card;
             card1.dispatchEvent(new Event('chosen'));
 
-        } else if(!card2){
+        } else if (!card2) {
 
-            if(card1 === card){
+            if (card1 === card) {
                 // click on the same chosen card
                 return false;
             }
             card2 = card;
             card2.dispatchEvent(new Event('chosen'));
 
-            if(card1.getAttribute('cardimage') === card2.getAttribute('cardimage')){
+            if (card1.getAttribute('cardimage') === card2.getAttribute('cardimage')) {
                 // handling good choice
                 setTimeout(goodChoice, 2000);
 
@@ -86,7 +86,7 @@ let memory = function (tableDimension) {
 
     };
 
-    let goodChoice = function() {
+    let goodChoice = function () {
         card1.dispatchEvent(new Event('removeCard'));
         card2.dispatchEvent(new Event('removeCard'));
 
@@ -95,13 +95,13 @@ let memory = function (tableDimension) {
 
         remainingP.innerText = 'Remaining cards: ' + cardManager.remaining;
 
-        if(cardManager.remaining === 0){
+        if (cardManager.remaining === 0) {
             // victory condition satisfied
             gameVictory();
         }
     };
 
-    let badChoice = function() {
+    let badChoice = function () {
         card1.dispatchEvent(new Event('reject'));
         card2.dispatchEvent(new Event('reject'));
 
@@ -109,9 +109,9 @@ let memory = function (tableDimension) {
         card2 = undefined;
     };
 
-    let gameVictory = function(){
+    let gameVictory = function () {
         let lastTime = timer.stop();
-        context.removeEventListener('click',clickOnCardListener);
+        context.removeEventListener('click', clickOnCardListener);
         clearHTML(context);
 
         victory(lastTime);
@@ -124,9 +124,9 @@ let memory = function (tableDimension) {
      ** Running the game **
      **********************/
 
-    //
-    // table div creation
-    //
+        //
+        // table div creation
+        //
     let context = document.getElementById('context');
 
     let tableDiv = document.createElement('div');
@@ -156,7 +156,7 @@ let memory = function (tableDimension) {
     setStyle(scoreDiv, {
         'position': 'absolute',
         'bottom': 0,
-        'text-align':'left',
+        'text-align': 'left',
         'padding-left': '10px',
         'width': '95%',
     });

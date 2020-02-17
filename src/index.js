@@ -4,13 +4,13 @@ import welcome from "./welcome";
 /**
  * Listener that creates the root div and calls the game function welcome()
  */
-window.addEventListener('load',function(){
-    
+window.addEventListener('load', function () {
+
     let body = document.getElementsByTagName('body')[0];
 
     // creation of the root div
     let root = document.createElement('div');
-    root.setAttribute('id','root');
+    root.setAttribute('id', 'root');
 
     setStyle(root, {
         'margin': 'auto',
@@ -18,7 +18,7 @@ window.addEventListener('load',function(){
         'border': '1px solid grey',
         'padding': '150px 0',
         'text-align': 'center',
-        'position':'relative',
+        'position': 'relative',
         'border-radius': '25px',
     });
 
@@ -28,4 +28,4 @@ window.addEventListener('load',function(){
     // start the welcome screen
     welcome();
 
-},false);
+}, false);
