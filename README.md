@@ -61,7 +61,7 @@ images.
         
     * **index.js**: it creates the root div and calls the welcome file (this file is webpack entry point).
     * **memory.js**: the Memory game.
-    * **victory.js**: it is called by the memory file if the player win.
+    * **victory.js**: it is called by the memory file if the player wins.
     * **welcome.js**: it is called by the index file, contains the welcome screen.
     
 ## Browser known compatibility issues
