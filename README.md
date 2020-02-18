@@ -63,3 +63,12 @@ images.
     * **memory.js**: the Memory game.
     * **victory.js**: it is called by the memory file if the player win.
     * **welcome.js**: it is called by the index file, contains the welcome screen.
+    
+## Browser known compatibility issues
+| Browser  | Program Execution  | Issues  	|
+|:--------:|:------------------:|:---------:|
+| Chrome (v.80) |    Perfect 		    | Undetected |
+| Firefox (v.73)|    Perfect  		    | Undetected |
+| Opera (v.66)  |    Perfect 		    | Undetected |
+| Edge (v.44)   |    Perfect 		    | Undetected |
+| IE (v.11)	    |    Not running at all	| main.js: JS syntax error (maybe ES6 not supported) |
