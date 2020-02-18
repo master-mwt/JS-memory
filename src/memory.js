@@ -112,9 +112,14 @@ let memory = function (tableDimension) {
     let gameVictory = function () {
         let lastTime = timer.stop();
         context.removeEventListener('click', clickOnCardListener);
+        back.removeEventListener('click', backButtonListener);
         clearHTML(context);
 
         victory(lastTime);
+    };
+
+    let backButtonListener = function () {
+        location.reload();
     };
     //
     // End functions definitions
@@ -124,9 +129,9 @@ let memory = function (tableDimension) {
      ** Running the game **
      **********************/
 
-    //
-    // table div creation
-    //
+        //
+        // table div creation
+        //
     let context = document.getElementById('context');
 
     let tableDiv = document.createElement('div');
@@ -151,9 +156,7 @@ let memory = function (tableDimension) {
     scoreDiv.appendChild(back);
     scoreDiv.appendChild(time);
     back.appendChild(backText);
-    back.addEventListener('click', function () {
-        location.reload();
-    }, false);
+    back.addEventListener('click', backButtonListener, false);
 
 
     setStyle(scoreDiv, {

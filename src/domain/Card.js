@@ -51,7 +51,6 @@ let Card = function (id, frontCard, backCard) {
         });
 
         this.setStyle(back, {
-            /*'position': 'absolute',*/ // bug in Firefox if active !
             'height': '100%',
             'width': '100%',
 
@@ -100,8 +99,8 @@ let Card = function (id, frontCard, backCard) {
         });
 
         removeHoverEffect();
-        div.removeEventListener('mouseover', listenerFunctionOver);
-        div.removeEventListener('mouseout', listenerFunctionOut);
+        div.removeEventListener('chosen', listenerFunctionOver);
+        div.removeEventListener('reject', listenerFunctionOut);
         removeClickEffect();
 
         div.setAttribute('removed', 'removed');
@@ -121,7 +120,7 @@ let Card = function (id, frontCard, backCard) {
     };
 
     this.handleEvent = function (eventType, callBack) {
-        div.addEventListener(eventType, callBack.bind(null, _this)); // il bind con null serve ad evitare che div ritorni fuori
+        div.addEventListener(eventType, callBack.bind(null, _this));
     };
 
 
@@ -205,6 +204,7 @@ let Card = function (id, frontCard, backCard) {
 
     // hover effect functions
     let hoverEffect = () => {
+        console.log('hover effect');
         this.setStyle(div, {
             'transform': 'scale(1.1)',
             '-webkit-transform': 'scale(1.1)',
@@ -215,6 +215,7 @@ let Card = function (id, frontCard, backCard) {
     };
 
     let removeHoverEffect = () => {
+        console.log('remove hover effect');
         this.setStyle(div, {
             'transform': 'scale(1)',
             '-webkit-transform': 'scale(1)',
