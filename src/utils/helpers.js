@@ -36,10 +36,10 @@ let clearImageInHTMLElement = function (HTMLElement) {
 /**
  * A timer that counts the played time
  *
- * @param timeHTML HTMLElement in which the time is printed
+ * @param HTMLTimeP HTMLElement in which the time is printed
  * @constructor
  */
-let TimeCounter = function (timeHTML) {
+let TimeCounter = function (HTMLTimeP) {
     let lastTime;
     let startTime;
 
@@ -49,7 +49,7 @@ let TimeCounter = function (timeHTML) {
         lastTime = difference;
         let playTimeMinutes = difference.getMinutes();
         let playTimeSeconds = difference.getSeconds();
-        timeHTML.innerText = 'Time: ' + printTime(playTimeMinutes) + ':' + printTime(playTimeSeconds);
+        HTMLTimeP.innerText = 'Time: ' + printTime(playTimeMinutes) + ':' + printTime(playTimeSeconds);
     };
 
     // functions
