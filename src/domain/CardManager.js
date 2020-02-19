@@ -1,7 +1,6 @@
 import Card from './Card';
 
 let CardManager = function (context) {
-
     this.cardList = [];
     this.remaining = 0;
 
@@ -15,11 +14,15 @@ let CardManager = function (context) {
         this.cardList.push(card);
         this.remaining++;
 
-        card.handleEvent('removeCard', function (card) {
-            _this.removeCard(card);
-        });
+        card.handleEvent('removeCard', cardRemoveHandler);
 
         return card;
+    };
+
+    // removeCard handler
+    let cardRemoveHandler = function (card) {
+        card.removeHandledEvent();
+        _this.removeCard(card);
     };
 
     this.removeCard = function (card) {
@@ -38,7 +41,6 @@ let CardManager = function (context) {
     this.append = function (card) {
         card.attach(context);
     };
-
 };
 
 export default CardManager;

@@ -11,13 +11,19 @@ import ImageUtils from './utils/ImageUtils';
 let memory = function (tableDimension) {
 
     //
+    // Game variables definitions
+    //
+    let card1;
+    let card2;
+
+    //
     // Game functions definitions
     //
     let run = function () {
         //
-        // Populate table with cards
+        // Fill table with cards
         //
-        createGameTable(Number.parseInt(tableDimension));
+        fillGameTable(Number.parseInt(tableDimension));
 
         //
         // Starting game
@@ -27,7 +33,7 @@ let memory = function (tableDimension) {
         timer.start();
     };
 
-    let createGameTable = function (numCards) {
+    let fillGameTable = function (numCards) {
         let i = 0;
         let imageUtils = new ImageUtils();
 
@@ -129,9 +135,9 @@ let memory = function (tableDimension) {
      ** Running the game **
      **********************/
 
-        //
-        // table div creation
-        //
+    //
+    // table div creation
+    //
     let context = document.getElementById('context');
 
     let tableDiv = document.createElement('div');
@@ -149,12 +155,12 @@ let memory = function (tableDimension) {
     scoreDiv.setAttribute('id', 'score');
 
     let remainingP = document.createElement('p');
-    let time = document.createElement('p');
+    let timeP = document.createElement('p');
     let back = document.createElement('button');
     let backText = document.createTextNode('Back');
     scoreDiv.appendChild(remainingP);
     scoreDiv.appendChild(back);
-    scoreDiv.appendChild(time);
+    scoreDiv.appendChild(timeP);
     back.appendChild(backText);
     back.addEventListener('click', backButtonListener, false);
 
@@ -177,15 +183,13 @@ let memory = function (tableDimension) {
     context.appendChild(tableDiv);
     context.appendChild(scoreDiv);
 
-
     //
-    // Game variable definition and run game
+    // CardManager and Timer objects definition
     //
-    let card1;
-    let card2;
     let cardManager = new CardManager(tableDiv);
-    let timer = new TimeCounter(time);
+    let timer = new TimeCounter(timeP);
 
+    // start the game
     run();
 };
 

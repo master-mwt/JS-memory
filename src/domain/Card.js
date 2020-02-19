@@ -99,12 +99,11 @@ let Card = function (id, frontCard, backCard) {
         });
 
         removeHoverEffect();
-        div.removeEventListener('chosen', listenerFunctionOver);
-        div.removeEventListener('reject', listenerFunctionOut);
+        div.removeEventListener('chosen', listenerFunctionChosen);
+        div.removeEventListener('reject', listenerFunctionReject);
         removeClickEffect();
 
         div.setAttribute('removed', 'removed');
-        console.log('detach');
     };
 
     this.setImages = function (frontCard, backCard) {
@@ -120,7 +119,21 @@ let Card = function (id, frontCard, backCard) {
     };
 
     this.handleEvent = function (eventType, callBack) {
-        div.addEventListener(eventType, callBack.bind(null, _this));
+        // attach ONLY one event to a card
+        if(this.attachedHandler){
+            throw "An event is already handled";
+        }
+        this.attachedEvent = eventType;
+        this.attachedHandler = callBack.bind(null, _this);
+
+        div.addEventListener(this.attachedEvent, this.attachedHandler, false);
+    };
+
+    this.removeHandledEvent = function () {
+        div.removeEventListener(this.attachedEvent, this.attachedHandler);
+
+        this.attachedEvent = undefined;
+        this.attachedHandler = undefined;
     };
 
 
@@ -132,8 +145,6 @@ let Card = function (id, frontCard, backCard) {
         div.removeEventListener('mouseover', listenerFunctionOver);
         div.removeEventListener('mouseout', listenerFunctionOut);
         clickEffect();
-
-        console.log('chosen');
     };
 
     let reject = function () {
@@ -141,7 +152,6 @@ let Card = function (id, frontCard, backCard) {
         div.addEventListener('mouseover', listenerFunctionOver, false);
         div.addEventListener('mouseout', listenerFunctionOut, false);
         removeClickEffect();
-        console.log('reject');
     };
 
 
@@ -162,13 +172,13 @@ let Card = function (id, frontCard, backCard) {
         reject();
     };
 
+
     //
     // graphical effects functions
     //
 
     // click effect functions
     let clickEffect = () => {
-        console.log('restore click');
         this.setStyle(div, {
             'transform': 'scale(.97)',
             '-webkit-transform': 'scale(.97)',
@@ -180,7 +190,6 @@ let Card = function (id, frontCard, backCard) {
     };
 
     let removeClickEffect = () => {
-        console.log('remove click');
         this.setStyle(div, {
             'transform': 'none',
             '-webkit-transform': 'none',
@@ -192,7 +201,6 @@ let Card = function (id, frontCard, backCard) {
 
     // flip effect
     let flip = () => {
-        console.log('flip');
         this.setStyle(div, {
             'transform': 'rotateY(180deg)',
             '-webkit-transform': 'rotateY(180deg)',
@@ -204,7 +212,6 @@ let Card = function (id, frontCard, backCard) {
 
     // hover effect functions
     let hoverEffect = () => {
-        console.log('hover effect');
         this.setStyle(div, {
             'transform': 'scale(1.1)',
             '-webkit-transform': 'scale(1.1)',
@@ -215,7 +222,6 @@ let Card = function (id, frontCard, backCard) {
     };
 
     let removeHoverEffect = () => {
-        console.log('remove hover effect');
         this.setStyle(div, {
             'transform': 'scale(1)',
             '-webkit-transform': 'scale(1)',

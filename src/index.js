@@ -1,6 +1,6 @@
 import {setStyle} from "./utils/helpers";
 import welcome from "./welcome";
-// TODO: remove global debug console.log() and do testing
+// TODO: do testing
 /**
  * Listener that creates the root div and calls the game function welcome()
  */
