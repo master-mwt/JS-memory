@@ -50,7 +50,7 @@ images.
 * **src**: directory that contains all the application's JS source code and assets.
 
     * **domain**: directory that contains the model objects.
-        * **Card.js**: object that represents a card structure.
+        * **Card.js**: object that represents a card.
         * **CardManager.js**: object that deals with cards.
         
     * **img**: directory that contains memory card's images.
@@ -59,7 +59,7 @@ images.
         * **helpers.js**: file that contains helpers functions and objects.
         * **ImageUtils.js**: file that contains Image and ImageUtils objects that handle images.
         
-    * **index.js**: it creates the root div and calls the welcome file (this file is webpack entry point).
+    * **index.js**: it creates the root div and calls the welcome file (this file is webpack entry).
     * **memory.js**: the Memory game.
     * **victory.js**: it is called by the memory file if the player wins.
     * **welcome.js**: it is called by the index file, contains the welcome screen.
