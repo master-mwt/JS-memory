@@ -6,8 +6,8 @@ JS Course Project in [Master MWT](http://mwt.disim.univaq.it/).
 
 This is a Javascript implementation of the game 'Memory'.
 
-This project uses [npm](https://www.npmjs.com/) package manager, [webpack](https://webpack.js.org/) module bundler and 
-the [file-loader](https://www.npmjs.com/package/file-loader) package as an addon to webpack.
+This project uses [npm](https://www.npmjs.com/) package manager, [webpack](https://webpack.js.org/) module bundler,
+[file-loader](https://www.npmjs.com/package/file-loader) package as an addon to webpack and [lodash](https://lodash.com/) for a performing array shuffling.
 
 ## Author
 * **[Riccardo Armando Di Prinzio](mailto:riccardoarmando.diprinzio@student.univaq.it)** [Matr: 268568]
@@ -25,7 +25,7 @@ the [file-loader](https://www.npmjs.com/package/file-loader) package as an addon
 ├── src
 │   ├── domain
 │   │   ├── Card.js
-│   │   └── CardManager.js
+│   │   └── CardContainer.js
 │   ├── img
 │   │   └── ...
 │   ├── utils
@@ -51,7 +51,7 @@ images.
 
     * **domain**: directory that contains the model objects.
         * **Card.js**: object that represents a card.
-        * **CardManager.js**: object that deals with cards.
+        * **CardContainer.js**: object that deals with cards.
         
     * **img**: directory that contains memory card's images.
     
@@ -71,4 +71,4 @@ images.
 | Firefox (v.73)|    Perfect  		    | Undetected |
 | Opera (v.66)  |    Perfect 		    | Undetected |
 | Edge (v.44)   |    Perfect 		    | Undetected |
-| IE (v.11)	    |    Not running at all	| main.js: JS syntax error (maybe ES6 not supported) |
+| IE (v.11)	    |    Not running at all	| main.js: JS syntax error (maybe ES6 not supported ?) |

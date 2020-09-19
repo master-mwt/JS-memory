@@ -3,7 +3,6 @@ import {clearImageInHTMLElement, setImageInHTMLElement, setStyle} from '../utils
 let Card = function (id, frontCard, backCard) {
     let div;
     let front, back;
-
     let _this = this;
 
     // init function
@@ -19,7 +18,7 @@ let Card = function (id, frontCard, backCard) {
         div.appendChild(back);
 
         // set id, frontCard, backCard
-        if (id && frontCard && backCard) {
+        if (!!id && !!frontCard && !!backCard) {
             this.setId(id);
             this.setImages(frontCard, backCard);
         } else {
@@ -33,7 +32,7 @@ let Card = function (id, frontCard, backCard) {
         div.addEventListener('reject', listenerFunctionReject, false);
 
         // set card style
-        this.setStyle(div, {
+        setStyle(div, {
             // style here
             'height': '120px',
             'width': '90px',
@@ -50,7 +49,7 @@ let Card = function (id, frontCard, backCard) {
             '-ms-transition': 'transform .6s',
         });
 
-        this.setStyle(back, {
+        setStyle(back, {
             'height': '100%',
             'width': '100%',
 
@@ -61,7 +60,7 @@ let Card = function (id, frontCard, backCard) {
             '-ms-backface-visibility': 'hidden',
         });
 
-        this.setStyle(front, {
+        setStyle(front, {
             'position': 'absolute',
             'height': '100%',
             'width': '100%',
@@ -80,6 +79,7 @@ let Card = function (id, frontCard, backCard) {
         });
 
     }).bind(this);
+    // end init function
 
 
     //
@@ -91,10 +91,10 @@ let Card = function (id, frontCard, backCard) {
 
     this.detach = function () {
         // clear card images
-        this.clearImageInHTMLElement(front);
-        this.clearImageInHTMLElement(back);
+        clearImageInHTMLElement(front);
+        clearImageInHTMLElement(back);
 
-        this.setStyle(div, {
+        setStyle(div, {
             'border': 'none',
         });
 
@@ -109,8 +109,8 @@ let Card = function (id, frontCard, backCard) {
     this.setImages = function (frontCard, backCard) {
         div.setAttribute('cardimage', frontCard.name);
 
-        this.setImageInHTMLElement(back, backCard);
-        this.setImageInHTMLElement(front, frontCard);
+        setImageInHTMLElement(back, backCard);
+        setImageInHTMLElement(front, frontCard);
     };
 
     this.setId = function (id) {
@@ -179,7 +179,7 @@ let Card = function (id, frontCard, backCard) {
 
     // click effect functions
     let clickEffect = () => {
-        this.setStyle(div, {
+        setStyle(div, {
             'transform': 'scale(.97)',
             '-webkit-transform': 'scale(.97)',
             '-moz-transform': 'scale(.97)',
@@ -190,7 +190,7 @@ let Card = function (id, frontCard, backCard) {
     };
 
     let removeClickEffect = () => {
-        this.setStyle(div, {
+        setStyle(div, {
             'transform': 'none',
             '-webkit-transform': 'none',
             '-moz-transform': 'none',
@@ -201,7 +201,7 @@ let Card = function (id, frontCard, backCard) {
 
     // flip effect
     let flip = () => {
-        this.setStyle(div, {
+        setStyle(div, {
             'transform': 'rotateY(180deg)',
             '-webkit-transform': 'rotateY(180deg)',
             '-moz-transform': 'rotateY(180deg)',
@@ -212,7 +212,7 @@ let Card = function (id, frontCard, backCard) {
 
     // hover effect functions
     let hoverEffect = () => {
-        this.setStyle(div, {
+        setStyle(div, {
             'transform': 'scale(1.1)',
             '-webkit-transform': 'scale(1.1)',
             '-moz-transform': 'scale(1.1)',
@@ -222,7 +222,7 @@ let Card = function (id, frontCard, backCard) {
     };
 
     let removeHoverEffect = () => {
-        this.setStyle(div, {
+        setStyle(div, {
             'transform': 'scale(1)',
             '-webkit-transform': 'scale(1)',
             '-moz-transform': 'scale(1)',
@@ -233,12 +233,6 @@ let Card = function (id, frontCard, backCard) {
 
     // call to init
     init();
-};
-
-Card.prototype = {
-    setStyle: setStyle,
-    setImageInHTMLElement: setImageInHTMLElement,
-    clearImageInHTMLElement: clearImageInHTMLElement,
 };
 
 export default Card;

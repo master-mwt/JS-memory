@@ -1,8 +1,8 @@
-import CardManager from './domain/CardManager';
+import * as _ from 'lodash';
+import CardContainer from './domain/CardContainer';
 import {
     clearHTML,
     setStyle,
-    shuffle,
     TimeCounter,
 } from './utils/helpers';
 import victory from './victory';
@@ -28,7 +28,7 @@ let memory = function (tableDimension) {
         //
         // Starting game
         //
-        remainingP.innerText = 'Remaining cards: ' + cardManager.remaining;
+        remainingP.innerText = 'Remaining cards: ' + cardContainer.remaining;
         context.addEventListener('click', clickOnCardListener, false);
         timer.start();
     };
@@ -41,14 +41,18 @@ let memory = function (tableDimension) {
         while (i < numCards) {
             let frontCard = imageUtils.getFrontCard();
 
-            cardManager.createCard('card' + i, frontCard, backCard);
-            cardManager.createCard('card' + (i + 1), frontCard, backCard);
+            cardContainer.createCard('card' + i, frontCard, backCard);
+            cardContainer.createCard('card' + (i + 1), frontCard, backCard);
             i += 2;
         }
 
-        let cards = shuffle(cardManager.cardList);
+        // my implementation of shuffle (utils/helpers.js)
+        // let cards = shuffle(cardContainer.cardList);
+
+        // lodash implementation of shuffle
+        let cards = _.shuffle(cardContainer.cardList);
         for (let card of cards) {
-            cardManager.append(card);
+            cardContainer.append(card);
         }
     };
 
@@ -58,7 +62,7 @@ let memory = function (tableDimension) {
         let cardTarget = event.target.parentElement;
         let idTarget = cardTarget.getAttribute('id');
 
-        if (idTarget && idTarget.includes('card') &&
+        if (!!idTarget && idTarget.includes('card') &&
             !(cardTarget.getAttribute('removed'))) {
             // click on not removed card
             gameMove(cardTarget);
@@ -99,9 +103,9 @@ let memory = function (tableDimension) {
         card1 = undefined;
         card2 = undefined;
 
-        remainingP.innerText = 'Remaining cards: ' + cardManager.remaining;
+        remainingP.innerText = 'Remaining cards: ' + cardContainer.remaining;
 
-        if (cardManager.remaining === 0) {
+        if (cardContainer.remaining === 0) {
             // victory condition satisfied
             gameVictory();
         }
@@ -184,9 +188,9 @@ let memory = function (tableDimension) {
     context.appendChild(scoreDiv);
 
     //
-    // CardManager and Timer objects definition
+    // CardContainer and Timer objects definition
     //
-    let cardManager = new CardManager(tableDiv);
+    let cardContainer = new CardContainer(tableDiv);
     let timer = new TimeCounter(timeP);
 
     // start the game

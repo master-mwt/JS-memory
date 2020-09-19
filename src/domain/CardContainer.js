@@ -1,9 +1,8 @@
 import Card from './Card';
 
-let CardManager = function (context) {
+let CardContainer = function (context) {
     this.cardList = [];
     this.remaining = 0;
-
     let _this = this;
 
     //
@@ -43,4 +42,4 @@ let CardManager = function (context) {
     };
 };
 
-export default CardManager;
+export default CardContainer;
