@@ -47,7 +47,7 @@ let memory = function (tableDimension) {
         }
 
         // my implementation of shuffle (utils/helpers.js)
-        // let cards = shuffle(cardContainer.cardList);
+        //let cards = shuffle(cardContainer.cardList);
 
         // lodash implementation of shuffle
         let cards = _.shuffle(cardContainer.cardList);
